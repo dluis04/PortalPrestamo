@@ -29,9 +29,6 @@ public class LogSesione implements Serializable {
 	@Column(name="LGS_PASSWORD")
 	private String lgsPassword;
 
-	@Column(name="LGS_PASSWORD_SESION")
-	private String lgsPasswordSesion;
-
 	@Column(name="LGS_STATUS_INTENTO")
 	private String lgsStatusIntento;
 
@@ -71,14 +68,6 @@ public class LogSesione implements Serializable {
 
 	public void setLgsPassword(String lgsPassword) {
 		this.lgsPassword = lgsPassword;
-	}
-
-	public String getLgsPasswordSesion() {
-		return this.lgsPasswordSesion;
-	}
-
-	public void setLgsPasswordSesion(String lgsPasswordSesion) {
-		this.lgsPasswordSesion = lgsPasswordSesion;
 	}
 
 	public String getLgsStatusIntento() {

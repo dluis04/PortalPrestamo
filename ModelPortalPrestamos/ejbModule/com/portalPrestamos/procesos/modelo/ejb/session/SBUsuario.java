@@ -1,12 +1,9 @@
 package com.portalPrestamos.procesos.modelo.ejb.session;
 
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-
 import com.portalPrestamos.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
-import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.LogSesione;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 
 
@@ -41,20 +38,12 @@ public class SBUsuario implements SBUsuarioLocal {
 		String query = "SELECT u.idUsuario FROM Usuario u where u.usuUsuario='" + user.getUsuUsuario() + "' "
 				+ "and u.usuPassword='" + user.getUsuPassword() + "' ";
 
-		LogSesione logUsu = new LogSesione();
-
 		List listUsuario = sbFacade.executeQuery(query, null);
 		retorna = listUsuario.size();
-		logUsu.setLgsUsuario(user.getUsuUsuario());
-		logUsu.setLgsPassword(user.getUsuPassword());
-		logUsu.setLgsPasswordSesion(user.getUsuPassword());
 
 		if (retorna > 0) {
-			logUsu.setLgsStatusIntento("CORRECTO");
 			return retorna;
 		}
-		logUsu.setLgsStatusIntento("INCORRECTO");
-		
 		return retorna;
 	}
 
