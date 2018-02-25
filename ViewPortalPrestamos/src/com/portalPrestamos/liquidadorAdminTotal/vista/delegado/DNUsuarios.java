@@ -5,10 +5,12 @@ import javax.annotation.ManagedBean;
 
 
 import javax.enterprise.context.ApplicationScoped;
+
 import com.portalPrestamos.estandar.modelo.utilidades.Parametros;
 import com.portalPrestamos.estandar.vista.utilidades.ServiceLocator;
 import com.portalPrestamos.procesos.modelo.ejb.session.SBUsuarioLocal;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
+
 
 
 @ManagedBean(value = "DNUsuarios")
