@@ -62,12 +62,15 @@ public class MBLogin {
 
 		int intentosSesion = 0;
 		intentosSesion = dnLogSesiones.consultarIntentosFallidos(user);
-		
 
 		vLogSesiones.setLgsUsuario(user.getUsuUsuario());
 		vLogSesiones.setLgsPassword(user.getUsuPassword());
 		vLogSesiones.setLgsStatusIntento(status);
-		vLogSesiones.setLgsIntentoFallido(intentosSesion + 1);
+		if (status.equals("CORRECTO")) {
+			vLogSesiones.setLgsIntentoFallido(0);
+		}else {
+			vLogSesiones.setLgsIntentoFallido(intentosSesion + 1);
+		}
 		Date fecha = new Date();
 		vLogSesiones.setLgsFechaRegistro(fecha);
 
