@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import com.portalPrestamos.estandar.vista.mb.MBMensajes;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNUsuarios;
+import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.LogSesione;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 
 @ManagedBean(name = "MBLogin")
@@ -17,22 +18,27 @@ public class MBLogin {
 	private String pass;
 	private Usuario vUsuario;
 	DNUsuarios dnUsuarios;
+	private LogSesione vLogSesiones;
 
 	public MBLogin() {
 		vUsuario = new Usuario();
+		vLogSesiones = new LogSesione();
 	}
 
 	public void iniciarSesion() throws Exception {
-		System.out.println("Entro");
 		dnUsuarios = new DNUsuarios();
-		
+
 		if (dnUsuarios.consultarUsuarioInicio(vUsuario) == 1) {
+
 			FacesContext context = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = context.getExternalContext();
-			String url2 = externalContext.encodeActionURL(
-					context.getApplication().getViewHandler().getActionURL(context, "/view/usuarios/CrearCuentaUsuario.xhtml"));
+			String url2 = externalContext.encodeActionURL(context.getApplication().getViewHandler()
+					.getActionURL(context, "/view/usuarios/CrearCuentaUsuario.xhtml"));
 			externalContext.redirect(url2);
+		} else {
+
 		}
+
 	}
 
 	public void cerrarSesion() {

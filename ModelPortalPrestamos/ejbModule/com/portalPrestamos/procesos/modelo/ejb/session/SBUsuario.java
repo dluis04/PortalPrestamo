@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.portalPrestamos.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
+import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.LogSesione;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 
 /**
@@ -14,16 +15,15 @@ import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 @Stateless
 public class SBUsuario implements SBUsuarioLocal {
 
-
 	@EJB
 	SBFacadeProcesosLocal sbFacade;
-	
-    /**
-     * Default constructor. 
-     */
-    public SBUsuario() {
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * Default constructor.
+	 */
+	public SBUsuario() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public Usuario crearUsuario(Usuario nuevo) throws Exception {
@@ -33,17 +33,26 @@ public class SBUsuario implements SBUsuarioLocal {
 
 	@Override
 	public int consultarUsuarioInicio(Usuario user) throws Exception {
-	
+
 		int retorna = 0;
 
 		String query = "SELECT u.idUsuario FROM Usuario u where u.usuUsuario='" + user.getUsuUsuario() + "' "
 				+ "and u.usuPassword='" + user.getUsuPassword() + "' ";
 
+		LogSesione logUsu = new LogSesione();
+
 		List listUsuario = sbFacade.executeQuery(query, null);
 		retorna = listUsuario.size();
+		logUsu.setLgsUsuario(user.getUsuUsuario());
+		logUsu.setLgsPassword(user.getUsuPassword());
+		logUsu.setLgsPasswordSesion(user.getUsuPassword());
+
 		if (retorna > 0) {
+			logUsu.setLgsStatusIntento("CORRECTO");
 			return retorna;
 		}
+		logUsu.setLgsStatusIntento("INCORRECTO");
+		
 		return retorna;
 	}
 
