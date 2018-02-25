@@ -13,7 +13,6 @@
 		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.CuotaMoraHi</class>
 		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.DetalleCuota</class>
 		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.DetalleCuotasHi</class>
-		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.LogSesione</class>
 		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Modulo</class>
 		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Nota</class>
 		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Pago</class>
@@ -25,6 +24,8 @@
 		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.TiposBloqueo</class>
 		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.TipoUsuario</class>
 		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.UsuariosBloqueado</class>
+		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.ConfiguracionApp</class>
+		<class>com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.LogSesione</class>
 		<properties>
 			<property name="eclipselink.target-server" value="SunAS9" />
 		</properties>
