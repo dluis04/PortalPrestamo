@@ -36,22 +36,21 @@ public class SBUsuario implements SBUsuarioLocal {
 	
 		int retorna = 0;
 
-		String query = "SELECT u.idCcUsuario FROM Usuario u where u.usuario='" + user.getIdUsuario()+ "' "
-				+ "and u.contraseña='" + user.getUsuPassword()+ "' ";
+		String query = "SELECT u.idUsuario FROM Usuario u where u.usuUsuario='" + user.getUsuUsuario() + "' "
+				+ "and u.usuPassword='" + user.getUsuPassword() + "' ";
 
 		List listUsuario = sbFacade.executeQuery(query, null);
-
-		if (listUsuario.size() > 0) {
-			retorna = listUsuario.size();
+		retorna = listUsuario.size();
+		if (retorna > 0) {
+			return retorna;
 		}
-
 		return retorna;
 	}
 
 	@Override
 	public int consultarUsuarioRepetido(Usuario user) throws Exception {
 
-		String query = "SELECT COUNT(idCcUsuario) FROM Usuario WHERE usuario ='" + user.getIdUsuario() + "' ";
+		String query = "SELECT COUNT(idUsuario) FROM Usuario WHERE usuUsuario ='" + user.getUsuUsuario() + "' ";
 
 		List registrosList = sbFacade.executeNativeQuery(query, null);
 		String vo = "0";

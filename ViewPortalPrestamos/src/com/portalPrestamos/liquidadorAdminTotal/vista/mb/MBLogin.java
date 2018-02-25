@@ -23,6 +23,7 @@ public class MBLogin {
 	}
 
 	public void iniciarSesion() throws Exception {
+		System.out.println("Entro");
 		dnUsuarios = new DNUsuarios();
 		
 		if (dnUsuarios.consultarUsuarioInicio(vUsuario) == 1) {
