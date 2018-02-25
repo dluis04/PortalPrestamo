@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputScript library="js" name="validaciones2.js" />
+</h:head>
+<h:body>
+	<h:form id="form1">
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage library="images" name="ajax-loader.gif" />
+		</p:dialog>
+		<div align="center">
+			<p:growl id="messages1" sticky="true" />
+			
+			<p:panel style="width: 1000px;" header="Datos Personales"
+				id="formularioReporte">
+
+				<h:panelGrid id="botones" columns="1" cellpadding="4">
+
+					<h:outputText style="background-color: none; " value="Nombres: " />
+
+					<p:inputText style="width: 200px;" id="idNombre" maxlength="12"
+						value="#{MBUsuarios.objUsuario.nombre}">
+					</p:inputText>
+
+					<h:outputText style="background-color: none; " value="Apellidos: " />
+
+					<p:inputText style="width: 200px;" id="idApellidos" maxlength="12"
+						value="#{MBUsuarios.objUsuario.apellidos}">
+					</p:inputText>
+
+					<h:outputText style="background-color: none; "
+						value="Fecha Nacimiento : " />
+
+					<p:calendar id="idFechaNac" label="Fecha Desde" required="true"
+						value="#{MBUsuarios.objUsuario.fechaNac}" pattern="dd/MM/yyyy" />
+
+					<h:outputText style="background-color: none; " value="Direccion : " />
+
+					<p:inputText style="width: 200px;" id="idDireccion" maxlength="12"
+						value="#{MBUsuarios.objUsuario.direccion}">
+					</p:inputText>
+
+					<h:outputText style="background-color: none; " value="Telefono : " />
+
+					<p:inputText style="width: 200px;" id="idTelefono" maxlength="12"
+						value="#{MBUsuarios.objUsuario.telefono}">
+					</p:inputText>
+
+					<h:outputText style="background-color: none; " value="Celular : " />
+
+					<p:inputText style="width: 200px;" id="idCelular" maxlength="12"
+						value="#{MBUsuarios.objUsuario.celular}">
+					</p:inputText>
+
+					<p:commandButton value="Aceptar" style="width: 220px;"
+						ajax="false" action="#{MBUsuarios.actualizarDatosPersonalesUsuario}"
+						update="tbl" styleClass="btn btn-green" id="generar">
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+
+
+		</div>
+	</h:form>
+</h:body>
+</html>
+

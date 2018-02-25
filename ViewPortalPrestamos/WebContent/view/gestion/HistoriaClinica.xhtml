@@ -1,0 +1,154 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+			<div class="container" style="text-align: center;">
+				<div class="brand" style="text-align: center;">
+					<h1 class="brand_name">
+						<a href="./">Psicovirtual</a>
+					</h1>
+					<p class="brand_slogan">Historia Clinica</p>
+				</div>
+			</div>
+
+
+			<p:tabView id="tapView">
+
+				<p:tab id="tapRegistro" title="Registro">
+
+					<p:growl id="messages1" sticky="true" />
+
+					<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+						closable="false" resizable="false" showHeader="false">
+						<p:graphicImage library="images" name="ajax-loader.gif" />
+					</p:dialog>
+					<div align="center">
+						<div class="ui-g">
+							<div class="ui-g-12 ui-md-12">
+								<p:dataTable id="tbl" var="dato" selectionMode="single"
+									selection="#{MBHistoriaClinica.seleccionCita}"
+									rowKey="#{dato.idCita}"
+									filteredValue="#{MBHistoriaClinica.filterListCitasPagadas}"
+									value="#{MBHistoriaClinica.listCitasPagadas}">
+
+									<f:facet name="header">
+    					  Ciente
+   				        </f:facet>
+
+									<p:column headerText="Id Cita">
+										<h:outputText value="#{dato.idCita}" />
+									</p:column>
+
+									<p:column headerText="Nombres "
+										filterBy="#{dato.clientesPsicologo.usuario1.nombre}">
+										<h:outputText
+											value="#{dato.clientesPsicologo.usuario1.nombre}" />
+									</p:column>
+
+									<p:column headerText="Apellidos"
+										filterBy="#{dato.clientesPsicologo.usuario1.apellidos}">
+										<h:outputText
+											value="#{dato.clientesPsicologo.usuario1.apellidos}" />
+									</p:column>
+
+									<p:column headerText="Fecha Citacion">
+										<h:outputText value="#{dato.horario.fechaInicial}">
+											<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+												timeZone="GMT-5" />
+										</h:outputText>
+									</p:column>
+
+								</p:dataTable>
+							</div>
+							<br />
+
+							<p:dataTable id="tbl2" var="dato" selectionMode="single"
+								selection="#{MBHistoriaClinica.temaSeleccionado}"
+								rowKey="#{dato.idTema}"
+								filteredValue="#{MBHistoriaClinica.filterListaTema}"
+								value="#{MBHistoriaClinica.listaTema}">
+
+								<f:facet name="header">
+    					  Tema
+   				        </f:facet>
+								<p:column headerText="Id Tema">
+									<h:outputText value="#{dato.idTema}" />
+								</p:column>
+								<p:column headerText="Nombre Tema"
+									filterBy="#{dato.descripcion}">
+									<h:outputText value="#{dato.descripcion}" />
+								</p:column>
+							</p:dataTable>
+
+							<div class="ui-g-12 ui-md-12">
+								<h:outputText
+									value="Ingresa la historia Clinica de tu paciente:"
+									style="font-size: 20px;" />
+							</div>
+							<div class="ui-g-12 ui-md-12">
+								<p:inputTextarea style="width: 200px;"
+									value="#{MBHistoriaClinica.historiaClinica}"></p:inputTextarea>
+							</div>
+							<div class="ui-g-12 ui-md-12">
+								<p:commandButton value="Guardar Historia Clinica"
+									style="width: 220px;" update="messages1,tapView"
+									action="#{MBHistoriaClinica.guardarHistoria(MBLogin.user)}"
+									styleClass="btn btn-blue" id="publicar">
+								</p:commandButton>
+							</div>
+						</div>
+					</div>
+				</p:tab>
+
+				<p:tab id="tapConsulta" title="Consulta Historia Clinica">
+					<div align="center">
+
+						<p:dataTable id="tbl3" var="dato" rowKey="#{dato.idTema}"
+							filteredValue="#{MBHistoriaClinica.filterListHistorial}"
+							value="#{MBHistoriaClinica.listHistorial}">
+
+							<p:column headerText="Id Cita">
+								<h:outputText value="#{dato.cita.idCita}" />
+							</p:column>
+
+							<p:column headerText="Nombres"
+								filterBy="#{dato.cita.clientesPsicologo.usuario1.nombre}">
+								<h:outputText
+									value="#{dato.cita.clientesPsicologo.usuario1.nombre}" />
+							</p:column>
+
+							<p:column headerText="Apellidos"
+								filterBy="#{dato.cita.clientesPsicologo.usuario1.apellidos}">
+								<h:outputText
+									value="#{dato.cita.clientesPsicologo.usuario1.apellidos}" />
+							</p:column>
+
+							<p:column headerText="Descripcion Historia Clinica">
+								<h:outputText value="#{dato.descripcion}" />
+							</p:column>
+
+							<p:column headerText="Fecha de publicacion">
+								<h:outputText value="#{dato.fechaHistorial}">
+										<f:convertDateTime pattern="dd/MM/yyyy"
+											timeZone="GMT-5" />
+									</h:outputText>
+							</p:column>
+
+						</p:dataTable>
+					</div>
+				</p:tab>
+			</p:tabView>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,383 @@
+#appTittle{
+	
+}
+.panelNoBorder, .panelNoBorder tr, .panelNoBorder td{
+border: hidden;
+border-color: white;
+background-color: #F1F1F1;
+}
+/*mensajes de confirmacion  */
+.mensajeConfirmacion{
+	font-weight: 500;
+	font-size: 100px !important;
+	height: 30% !important;
+    width: 40% !important;
+    text-align: center;
+}
+/*Estilo asociado a las tablas de datos tablas principales(opciones, roles, etc..)*/
+.enlaceIcono {
+    text-align: center !important;
+    text-decoration: none !important;
+    border: none !important;
+    height: 20px !important;
+}
+
+/*Estilo asociado a los iconos seleccionar de las tablas de datos tablas de consulta*/
+.columnaIcono {
+    text-align: center !important;
+    text-decoration: none !important;
+    border: none !important;
+    height: 20px !important;
+}
+
+/*Estilo asociado a la fuente general de la aplicacion*/
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 100% !important;
+}
+
+/*Estilo asociado al dialogo confirmacion eliminar registro*/
+.ui-confirm-dialog {
+    top: 100px !important;
+}
+
+/*Estilo encargado de mostrar el texto en mayuscula*/
+.mayusculas{
+    text-transform: uppercase;
+}
+
+.ui-inputfield{
+	color: #000000 !important;
+}
+
+.ui-panel-title{
+	color: #3C80B0 !important;
+}
+
+.ui-full-dialog{
+    height: 90% !important;
+    width: 95% !important;
+}
+
+.ui-medium-dialog{
+    height: auto !important;
+    width: 50% !important;
+}
+
+.ui-small-dialog{
+    height: auto !important;
+    width: 50% !important;
+}
+
+.ui-auto-dialog{
+	height: auto !important;
+    width: auto !important;
+}
+
+.ui-state-error{
+    box-shadow: 0 0 7px 3px #ff9900 !important;
+}
+
+.ui-datatable table{
+	text-align: center;
+}
+
+.body-default{
+	font-size: 14px;
+}
+
+.main-panel{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.main-div{
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+}
+
+.tittle{
+	padding: 5px;
+}
+
+.tittle .tittle-label{
+	font-size: 18px;
+	font-weight:bold;
+	margin-right: 5px;
+}
+
+
+
+
+
+.aling-right{
+	text-align: right;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	float: right;
+	clear: none;
+}
+
+.aling-right *{
+	margin-right: 10px;
+}
+
+.aling-left{
+	vertical-align: middle;
+	text-align: left;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	float: left;
+	clear: none;
+}
+/*
+.aling-left .ui-selectonemenu-label, .aling-left .ui-inputfield, .aling-left .ui-corner-all {
+	margin-right: 0 !important;
+}*/
+/*
+.aling-left * {
+	margin-right: 10px;
+}
+*/
+
+fieldset .ui-fieldset, .ui-fieldset .ui-fieldset-legend{
+	background: none !important;
+	background-color: #3C80B0 !important;
+	color: #ffffff;
+	border: none !important;
+}
+
+.aling-center{
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: auto;
+	margin-left: auto;
+	clear: none;
+}
+
+
+.btn-green{
+	background: none !important;
+	background-color: #318A1F !important;
+}
+/*
+.ui-icon.fa {
+     text-indent:0px;
+     background-image:none;
+}*/
+
+.btn-red{
+	background: none !important;
+	background-color: #B74230 !important;
+}
+
+.btn-yellow{
+	background: none !important;
+	background-color: #afaf0a !important;
+}
+
+.btn-blue{
+	background: none !important;
+	background-color: #376180 !important;
+}
+
+.btn-white{
+	color: #333 !important;
+	background: none !important;
+	background-color: #ffffff !important;
+	/*border: 1px solid #C1D3EE !important;*/
+	border-color: #C1D3EE !important;
+}
+
+.btn-white:hover:hover,.btn-white:hover:active{
+	border-color: #2293f7 !important;
+}
+
+.btn{
+	margin: 0 !important;
+}
+
+.btn-big{
+	height: 60px;
+	margin-right: 6px;
+}
+
+.btn span{
+	/*margin: 0 !important;*/
+	/*vertical-align: middle;*/
+}
+
+.alert{
+	color: red !important;;
+}
+
+.frameLeft{
+	float: left;
+	width: 25%;
+}
+
+.frameRight{
+	float: right;
+	width: 25%;
+}
+
+/*Define frame center style*/
+.frameCenter{
+	float: left;
+	width: 50%;
+	text-align: center;
+	display: table;
+}
+
+.frameCenter .frameCenter-row{
+	display: table-row;
+	width: 100%;
+	height: 40px;
+}
+
+.frameCenter-row .frameCenter-row-div1{
+	width: 50%;
+	float: left;
+	text-align: right;
+}
+
+.frameCenter-row .frameCenter-row-div2{
+	/*width: 50%;*/
+	float: left;
+	text-align: left;
+}
+
+.center-input{
+	width: 50%; float: right; text-align: left;
+}
+
+.table-no-border tbody, .table-no-border tr, .table-no-border td, .table-no-border th{
+	border: hidden !important;
+	background: none !important;
+}
+
+.table-blue th{
+	background: none !important;
+	background-color: #3C80B0 !important;
+}
+
+.accordion-normal h3, .div-normal, .legend-normal{
+	background: none !important;
+	background-color: #3C80B0 !important;
+	color: #ffffff;
+	border: none !important;
+}
+
+.accordion-success h3, .div-success{
+	background: none !important;
+	background-color: #62A81C !important;
+	color: #ffffff;
+	border: none !important;
+}
+
+.accordion-fail h3, .div-fail{
+	background: none !important;
+	background-color: #CA4D4D !important;
+	color: #ffffff;
+	border: none !important;
+}
+
+.div-container{
+	clear: both; 
+	height: 42px;
+	width: 100%;
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+
+.icon-color-1{
+	color: black;
+}
+
+.icon-color-2{
+	color: blue;
+}
+
+.icon-color-3{
+	color: green;
+}
+
+.icon-color-4{
+	color: red;
+}
+
+.sticky{
+	right: 0; top: 10%; z-index: 1000; margin-bottom:10px; float: right; clear: none; position: fixed;
+}
+
+.panel-dialog-question {
+	width: 100%;
+}
+
+.panel-dialog-question .first{
+	width: 18%;
+}
+
+.obsArea
+{
+    padding: 1em;
+    margin: auto;
+    margin-bottom: 1em;
+    height: 10em;
+    max-height: 10em;
+    width: 95%;
+    max-width: 95%;
+    resize:none;
+}
+
+.small-text{
+	font-size: 13px !important;
+}
+
+.requiredText{
+	font-size: 9px;
+	font-weight: bold;
+	color: red; 
+}
+
+/*Estilo panelgrid que contiene los formularios*/
+.panelForm tr, .panelForm td {
+    border-style: none !important;
+}
+
+/*Estilo asociado a la fuente general de la aplicacion*/
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 90% !important;
+}
+
+
+/*Estilos asociados a las columnas de los panel grid en la pantalla de creacion de preguntas*/
+.colLabel{
+	font-weight: bold;
+	padding: 3px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.colValue{
+	font-weight: bold;
+}
+
+.ui-datagrid-no-border>.ui-datagrid-content {
+   border: none;
+}
+
+.datagrid4 .ui-datagrid-column {
+	width: 25%;
+}
+
+.ui-widget-content{
+	background-color: #FAFAFA !important;
+	background-image: none !important;
+}
+
+.small-font{
+	font-size: 16px;
+}

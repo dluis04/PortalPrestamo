@@ -1,0 +1,182 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+
+<div class="container" style="text-align: center;">
+			<div class="brand" style="text-align: center;">
+				<h1 class="brand_name">
+					<a href="./">Psicovirtual</a>
+				</h1>
+				<p class="brand_slogan">Tipos				Usuario</p>
+			</div>
+		</div>
+
+	
+
+			<p:tabView id="tapView">
+
+
+
+				<p:tab id="tapRegistro" title="Registro">
+
+					<p:growl id="messages1" sticky="true" />
+
+					<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+						closable="false" resizable="false" showHeader="false">
+						<p:graphicImage library="images" name="ajax-loader.gif" />
+					</p:dialog>
+					<div align="center">
+
+
+						<h:panelGrid id="campos" columns="2" cellpadding="4">
+
+							<h:outputText style="    font-weight: bold; " value="Nombre : " />
+
+							<p:inputText style="width: 200px;" id="idNombre" maxlength="100"
+								value="#{MBTipoUsuario.nombreTipo}">
+							</p:inputText>
+
+							<h:outputText style="    font-weight: bold; "
+								value="Desripcion : " />
+							<p:inputTextarea value="#{MBTipoUsuario.descripcion}"></p:inputTextarea>
+
+
+
+
+							<p:commandButton value="Guardar" style="width: 220px;"
+								onstart="PF('statusDialog').show();  "
+								oncomplete="PF('statusDialog').hide();"
+								update=":formPrincipal:tapView:campos, messages1
+							,:formPrincipal:tapView:tbl"
+								action="#{MBTipoUsuario.guardar}" styleClass="btn btn-green"
+								id="guardar">
+							</p:commandButton>
+							<p:commandButton value="Limpiar" style="width: 220px;"
+								onstart="PF('statusDialog').show();  "
+								oncomplete="PF('statusDialog').hide();"
+								update=":formPrincipal:tapView:campos"
+								action="#{MBTipoUsuario.limpiar}" styleClass="btn btn-blue"
+								id="limpiar">
+							</p:commandButton>
+
+						</h:panelGrid>
+
+					</div>
+
+				</p:tab>
+				<p:tab id="tapConsulta" title="Consulta / Modificación">
+
+
+					<div align="center">
+						<h:panelGrid id="camposModificar" columns="2" cellpadding="4">
+
+							<h:outputText style="    font-weight: bold; " value="Nombre : " />
+
+
+							<p:inputText style="width: 200px;" id="idNombreModificar"
+								maxlength="100" value="#{MBTipoUsuario.nombreTipoModificar}">
+							</p:inputText>
+
+
+							<h:outputText style="    font-weight: bold; "
+								value="Desripcion : " />
+							<p:inputTextarea value="#{MBTipoUsuario.descripcionModificar}"></p:inputTextarea>
+
+							<h:outputText style="    font-weight: bold; " value="Estado : " />
+
+							<p:selectOneMenu id="productoFinanciero" style="width:200px"
+								value="#{MBTipoUsuario.estadoModificar}">
+								<f:selectItem itemLabel="Seleccione:" itemValue="" />
+								<f:selectItem itemLabel="ACTIVO" itemValue="ACTIVO" />
+								<f:selectItem itemLabel="INACTIVO" itemValue="INACTIVO" />
+							</p:selectOneMenu>
+
+
+
+
+
+
+
+
+
+							<p:commandButton value="Modificar" style="width: 220px;"
+				
+								update=":formPrincipal:tapView:camposModificar, messages1
+							,:formPrincipal:tapView:tbl"
+								action="#{MBTipoUsuario.guardarModificar}"
+								styleClass="btn btn-green" id="modificar">
+							</p:commandButton>
+							<p:commandButton value="Limpiar" style="width: 220px;"
+					
+								update=":formPrincipal:tapView:camposModificar"
+								action="#{MBTipoUsuario.limpiarModificar}"
+								styleClass="btn btn-blue" id="limpiarModificar">
+							</p:commandButton>
+
+						</h:panelGrid>
+
+						<br></br>
+
+
+
+						<p:dataTable id="tbl" var="dato" selectionMode="single"
+							selection="#{MBTipoUsuario.tipoUsuarioSeleccionado}"
+							rowKey="#{dato.idTipoUsu}"
+							value="#{MBTipoUsuario.listaTipoUsuario}">
+
+
+							<p:ajax event="rowSelect"
+								listener="#{MBTipoUsuario.cargarModificar}"
+								update=":formPrincipal:tapView:camposModificar" />
+
+
+							<p:column headerText="Id Tipo Usuario">
+								<h:outputText value="#{dato.idTipoUsu}" />
+							</p:column>
+
+							<p:column headerText="Nombre Tipo Usuario">
+								<h:outputText value="#{dato.nombre}" />
+
+
+
+							</p:column>
+
+							<p:column headerText="Descripcion ">
+								<h:outputText value="#{dato.descripcion}" />
+
+
+
+							</p:column>
+
+
+							<p:column headerText="Estado ">
+								<h:outputText value="#{dato.estado}" />
+
+
+
+							</p:column>
+						</p:dataTable>
+					</div>
+				</p:tab>
+
+			</p:tabView>
+
+
+		</h:form>
+
+
+
+
+
+	</ui:define>
+
+</ui:composition>

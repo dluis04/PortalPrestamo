@@ -1,0 +1,174 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+			<div class="container" style="text-align: center;">
+				<div class="brand" style="text-align: center;">
+					<h1 class="brand_name">
+						<a href="./">Psicovirtual</a>
+					</h1>
+					<p class="brand_slogan">Experiencias Blog</p>
+				</div>
+			</div>
+
+
+			<p:tabView id="tapView">
+
+
+
+				<p:tab id="tapRegistro" title="Publicar Experiencia">
+
+					<p:growl id="messages1" sticky="true" />
+
+					<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+						closable="false" resizable="false" showHeader="false">
+						<p:graphicImage library="images" name="ajax-loader.gif" />
+					</p:dialog>
+
+					<div align="center">
+						<div class="ui-g">
+							<div class="ui-g-12 ui-md-12">
+
+								<p:dataTable id="tbl" var="dato" selectionMode="single"
+									selection="#{MBComentarios.clientesPsicologoSeleccionado}"
+									filteredValue="#{MBComentarios.listaFiltrosClientesPsicologo}"
+									rowKey="#{dato.idCliePsico}"
+									value="#{MBComentarios.listaClientesPsicologo}">
+
+									<f:facet name="header">
+    					   Psicologos Relacionados con tu perfil
+   				        </f:facet>
+
+									<p:column headerText="Nombres "
+										filterBy="#{dato.usuario2.nombre}">
+										<h:outputText value="#{dato.usuario2.nombre}" />
+									</p:column>
+
+									<p:column headerText="Apellidos"
+										filterBy="#{dato.usuario2.apellidos}">
+										<h:outputText value="#{dato.usuario2.apellidos}" />
+									</p:column>
+
+									<p:column headerText="Celular ">
+										<h:outputText value="#{dato.usuario2.celular}" />
+									</p:column>
+
+									<p:column headerText="Correo ">
+										<h:outputText value="#{dato.usuario2.email}" />
+									</p:column>
+
+								</p:dataTable>
+							</div>
+
+							<div class="ui-g-12 ui-md-12">
+
+
+								<h:outputText
+									value="Deja tu comentario segun la experiencia que compartiste con el psicologo:"
+									style="font-size: 20px;" />
+							</div>
+							<div class="ui-g-12 ui-md-12">
+								<p:inputTextarea style="width: 200px;"
+									value="#{MBComentarios.testimonio}"></p:inputTextarea>
+							</div>
+							<div class="ui-g-12 ui-md-12">
+								<p:commandButton value="Publicar" style="width: 220px;"
+									update="messages1,tapView"
+									action="#{MBComentarios.publicarExperiencia(MBLogin.user)}"
+									styleClass="btn btn-blue" id="publicar">
+								</p:commandButton>
+							</div>
+
+						</div>
+
+
+
+					</div>
+				</p:tab>
+
+
+				<p:tab id="tapConsulta" title="Consulta Experiencias">
+
+					<div>
+
+						<p:panel id="datos">
+
+							<div class="ui-g">
+
+								<div class="ui-g-12 ui-md-6 ui-lg-3"></div>
+								<div class="ui-g-12 ui-md-6 ui-lg-3"></div>
+								<div class="ui-g-12 ui-md-6 ui-lg-3"></div>
+							</div>
+
+							<br></br>
+							<br></br>
+							<p:separator />
+							<p:repeat value="#{MBComentarios.listaComentarios}" var="dato">
+
+
+								<div class="ui-g">
+									<div class="ui-g-12 ui-md-6 ui-lg-3">
+										<p:graphicImage width="200" library="fotos"
+											name="#{dato.clientesPsicologo.usuario1.foto}" />
+									</div>
+
+
+									<div class="ui-g-12 ui-md-6 ui-lg-6">
+										<p:outputPanel style="text-align: left;">
+											<h:panelGrid columns="2" cellpadding="4"
+												style="text-align: left;">
+
+
+												Nombre Usuario: <h:outputText
+													value="#{dato.clientesPsicologo.usuario1.nombre} #{dato.clientesPsicologo.usuario1.apellidos}"
+													style="font-weight: bold" />
+
+											    Experiencia Psicologo :	<h:outputText
+													value="#{dato.clientesPsicologo.usuario2.nombre} #{dato.clientesPsicologo.usuario2.apellidos}"
+													style="font-weight: bold" />
+													
+													
+												Comentario:	<h:outputText value="#{dato.testimonio}"
+													style="font-weight: bold" />
+
+											    Fecha Publicacion :	<h:outputText
+													value="#{dato.fechaPublicacion}" style="font-weight: bold">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</h:outputText>
+
+											</h:panelGrid>
+										</p:outputPanel>
+									</div>
+
+
+
+								</div>
+
+								<hr />
+							</p:repeat>
+
+						</p:panel>
+					</div>
+
+
+				</p:tab>
+
+
+			</p:tabView>
+
+
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>
+

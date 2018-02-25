@@ -1,0 +1,175 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+		
+<div class="container" style="text-align: center;">
+			<div class="brand" style="text-align: center;">
+				<h1 class="brand_name">
+					<a href="./">Psicovirtual</a>
+				</h1>
+				<p class="brand_slogan">
+				Servicios</p>
+			</div>
+		</div>
+
+			<p:tabView id="tapView">
+				<p:tab id="tapRegistro" title="Registro">
+					<p:growl id="messages1" sticky="true" />
+
+					<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+						closable="false" resizable="false" showHeader="false">
+						<p:graphicImage library="images" name="ajax-loader.gif" />
+					</p:dialog>
+
+					<div align="center">
+						<p:dataTable id="tblTipos" var="datoTipo" selectionMode="single"
+							value="#{MBServicio.listaTipoServicio}"
+							selection="#{MBServicio.tipoServicioSeleccionado}"
+							filteredValue="#{MBServicio.listaFiltroTipoServicio}"
+							rowKey="#{datoTipo.idTipo}">
+
+							<f:facet name="header">
+   						     Tipos de Servicios
+    					    </f:facet>
+
+							<p:column headerText="Id Tipo Servicio"
+								filterBy="#{datoTipo.idTipo}">
+								<h:outputText value="#{datoTipo.idTipo}" />
+							</p:column>
+
+							<p:column headerText="Nombre Tipo Servicio"
+								filterBy="#{datoTipo.nombreTipo}">
+								<h:outputText value="#{datoTipo.nombreTipo}" />
+							</p:column>
+						</p:dataTable>
+						<br></br>
+
+						<h:panelGrid id="campos" columns="2" cellpadding="4">
+							<h:outputText style="    font-weight: bold; "
+								value="Nombre Servicio: " />
+
+							<p:inputText style="width: 200px;" id="idNombre" maxlength="100"
+								
+								value="#{MBServicio.nombreServicio}">
+							</p:inputText>
+
+							<h:outputText style="    font-weight: bold; "
+								value="Precio del Servicio: " />
+
+							<p:inputText style="width: 200px;" id="idPrecio" maxlength="100"
+								
+								onkeyup="javascript:this.value = stripNonNumeric(this.value);"
+								value="#{MBServicio.precioServicio}">
+							</p:inputText>
+
+							<p:commandButton value="Guardar" style="width: 220px;"
+								onstart="PF('statusDialog').show();  "
+								oncomplete="PF('statusDialog').hide();"
+								update=":formPrincipal:tapView:campos, messages1,:formPrincipal:tapView:tblTipos"
+								action="#{MBServicio.guardar(MBLogin.user)}"
+								styleClass="btn btn-green" id="guardar">
+							</p:commandButton>
+
+							<p:commandButton value="Limpiar" style="width: 220px;"
+								onstart="PF('statusDialog').show();  "
+								oncomplete="PF('statusDialog').hide();"
+								update=":formPrincipal:tapView:campos"
+								action="#{MBServicio.limpiar}" styleClass="btn btn-blue"
+								id="limpiar">
+							</p:commandButton>
+						</h:panelGrid>
+
+					</div>
+				</p:tab>
+				<p:tab id="tapConsulta" title="Consulta / Modificación">
+					<div align="center">
+						<h:panelGrid id="camposModificar" columns="2" cellpadding="4">
+
+
+							<h:outputText style="    font-weight: bold; "
+								value="Nombre Servicio: " />
+
+							<p:inputText style="width: 200px;" id="idNombreModificar"
+								maxlength="100" 
+								value="#{MBServicio.nombreServicioModificar}">
+							</p:inputText>
+
+							<h:outputText style="    font-weight: bold; "
+								value="Precio del Servicio: " />
+
+							<p:inputText style="width: 200px;" id="idPrecioModificar"
+								maxlength="100"
+								onkeyup="javascript:this.value = stripNonNumeric(this.value);"
+								value="#{MBServicio.precioServicioModificar}">
+							</p:inputText>
+
+
+
+
+
+							<p:commandButton value="Modificar" style="width: 220px;"
+								action="#{MBServicio.guardarModifica}"
+								update=":formPrincipal:tapView:camposModificar, messages1,:formPrincipal:tapView:tbl"
+								styleClass="btn btn-green" id="modificar">
+							</p:commandButton>
+
+
+							<p:commandButton value="Limpiar" style="width: 220px;"
+								action="#{MBServicio.limpiarModifica}"
+								update=":formPrincipal:tapView:camposModificar"
+								styleClass="btn btn-blue" id="limpiarModificar">
+							</p:commandButton>
+
+						</h:panelGrid>
+
+						<br></br>
+
+
+
+						<p:dataTable id="tbl" var="datoServicio" selectionMode="single"
+							selection="#{MBServicio.servicioSeleccionado}"
+							rowKey="#{datoServicio.idServicio}"
+							value="#{MBServicio.listaServicio}">
+
+
+							<p:ajax event="rowSelect"
+								listener="#{MBServicio.cargarModificar}"
+								update=":formPrincipal:tapView:camposModificar" />
+
+
+							<p:column headerText="Id Servicio">
+								<h:outputText value="#{datoServicio.idServicio}" />
+							</p:column>
+
+							<p:column headerText="Nombre Servicio">
+								<h:outputText value="#{datoServicio.nombreServicio}" />
+							</p:column>
+
+							<p:column headerText="Precio Servicio">
+								<h:outputText value="#{datoServicio.precio}" />
+							</p:column>
+
+						</p:dataTable>
+					</div>
+				</p:tab>
+			</p:tabView>
+
+		</h:form>
+
+
+
+
+
+	</ui:define>
+
+</ui:composition>
+

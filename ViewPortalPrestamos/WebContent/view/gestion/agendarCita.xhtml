@@ -1,0 +1,169 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+			<div class="container" style="text-align: center;">
+			<div class="brand" style="text-align: center;">
+				<h1 class="brand_name">
+					<a href="./">Psicovirtual</a>
+				</h1>
+				<p class="brand_slogan">Agendar Cita</p>
+			</div>
+		</div>
+
+			<p:growl id="messages1" sticky="true" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage library="images" name="ajax-loader.gif" />
+			</p:dialog>
+			<div align="left">
+
+				<p:panel id="datos">
+
+					<p:dataTable id="tbl" var="dato1" selectionMode="single"
+						selection="#{MBAgendarCita.clientesPsicologoSeleccionado}"
+						rowKey="#{dato1.idCliePsico}"
+						value="#{MBAgendarCita.listaClientesPsicologo}">
+						<f:facet name="header">
+    					   Psicologos Relacionados 
+   				        </f:facet>
+
+						<p:ajax event="rowSelect"
+							update=":formPrincipal:tbl2,formPrincipal:tblHora"
+							listener="#{MBAgendarCita.cargarServicios}" />
+
+						<p:column headerText="Nombres ">
+							<h:outputText value="#{dato1.usuario2.nombre}" />
+						</p:column>
+
+						<p:column headerText="Apellidos">
+							<h:outputText value="#{dato1.usuario2.apellidos}" />
+						</p:column>
+
+						<p:column headerText="Celular ">
+							<h:outputText value="#{dato1.usuario2.celular}" />
+						</p:column>
+
+						<p:column headerText="Correo ">
+							<h:outputText value="#{dato1.usuario2.email}" />
+						</p:column>
+
+					</p:dataTable>
+
+
+					<br></br>
+					<br></br>
+					<p:dataTable id="tbl2" var="dato2" selectionMode="single"
+						selection="#{MBAgendarCita.servicioSeleccionado}"
+						rowKey="#{dato2.idServicio}"
+						value="#{MBAgendarCita.listaServicio}">
+						<f:facet name="header">
+    					   Servicios Del Psicologo  
+   				        </f:facet>
+						<p:ajax event="rowSelect" listener="#{MBAgendarCita.setToBean}" />
+						
+						<p:column headerText="Tipo Servicio ">
+							<h:outputText value="#{dato2.tiposServicio.nombreTipo}" />
+						</p:column>
+
+						<p:column headerText="Nombre Servicio ">
+							<h:outputText value="#{dato2.nombreServicio}" />
+						</p:column>
+
+						<p:column headerText="Precio ">
+							<h:outputText value="#{dato2.precio}" />
+						</p:column>
+
+					</p:dataTable>
+					<br></br>
+
+					<p:dataTable var="dato3" value="#{MBAgendarCita.listaHorarios}"
+						id="tblHora" selection="#{MBAgendarCita.fechaSeleccionada}"
+						selectionMode="single" rowKey="#{dato3.idHorario}">
+						<f:facet name="header">
+   						     Horarios
+    					</f:facet>
+
+						<p:ajax event="rowSelect" update=":formPrincipal:datos2"
+							listener="#{MBAgendarCita.cargarHora}" />
+
+						<p:column headerText="Fecha Inicio">
+							<h:outputText value="#{dato3.fechaInicial}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-5" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Fecha Final">
+							<h:outputText value="#{dato3.fechaFinal}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-5" />
+							</h:outputText>
+						</p:column>
+
+					</p:dataTable>
+
+
+					<br></br>
+					<div align="center">
+
+						<p:panel id="datos2" header="Tipo De Cita Y Estado Cliente">
+
+
+							<h:panelGrid id="campos" columns="2" cellpadding="4">
+
+								<h:outputText style="    font-weight: bold; "
+									value="Tipo Cita : " />
+
+
+								<p:selectOneMenu id="d51" style="width:200px"
+									value="#{MBAgendarCita.tipoCitaSeleccionado}">
+									<f:selectItem itemLabel="Seleccione..." itemValue="" />
+									<f:selectItems value="#{MBAgendarCita.listaTipoCita}" />
+
+								</p:selectOneMenu>
+
+								<h:outputText style="    font-weight: bold; "
+									value="Cantidad Hora: " />
+								<h:outputText style="    font-weight: bold; "
+									value="#{MBAgendarCita.cantidadHora}" />
+
+								<h:outputText style="    font-weight: bold; " value="Precio : " />
+								<h:outputText style="    font-weight: bold; "
+									value="#{MBAgendarCita.precioHora}" />
+
+
+							</h:panelGrid>
+
+
+							<h:panelGrid id="campos4" columns="1" cellpadding="4">
+
+								<p:commandButton value="Agendar Cita" style="width: 220px;"
+									onstart="PF('statusDialog').show();  "
+									oncomplete="PF('statusDialog').hide();"
+									update="messages1,datos"
+									action="#{MBAgendarCita.guardarCita(MBLogin.user)}"
+									styleClass="btn btn-green" id="guardar">
+								</p:commandButton>
+							</h:panelGrid>
+
+
+						</p:panel>
+					</div>
+
+				</p:panel>
+			</div>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

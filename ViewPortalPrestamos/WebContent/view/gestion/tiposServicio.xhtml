@@ -1,0 +1,159 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+
+<div class="container" style="text-align: center;">
+			<div class="brand" style="text-align: center;">
+				<h1 class="brand_name">
+					<a href="./">Psicovirtual</a>
+				</h1>
+				<p class="brand_slogan">Tipos
+				Servicio</p>
+			</div>
+		</div>
+
+
+
+		
+	
+
+			<p:tabView id="tapView">
+
+
+
+				<p:tab id="tapRegistro" title="Registro">
+
+					<p:growl id="messages1" sticky="true" />
+
+					<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+						closable="false" resizable="false" showHeader="false">
+						<p:graphicImage library="images" name="ajax-loader.gif" />
+					</p:dialog>
+					<div align="center">
+
+
+						<h:panelGrid id="campos" columns="2" cellpadding="4">
+
+							<h:outputText style="    font-weight: bold; " value="Nombre : " />
+
+							<p:inputText style="width: 200px;" id="idNombre" maxlength="100"
+								value="#{MBTiposServicio.nombreTipo}">
+							</p:inputText>
+							<p:commandButton value="Guardar" style="width: 220px;"
+								onstart="PF('statusDialog').show();  "
+								oncomplete="PF('statusDialog').hide();"
+								update=":formPrincipal:tapView:campos, messages1
+							,:formPrincipal:tapView:tbl"
+								action="#{MBTiposServicio.guardar}" styleClass="btn btn-green"
+								id="guardar">
+							</p:commandButton>
+							<p:commandButton value="Limpiar" style="width: 220px;"
+								onstart="PF('statusDialog').show();  "
+								oncomplete="PF('statusDialog').hide();"
+								update=":formPrincipal:tapView:campos"
+								action="#{MBTiposServicio.limpiar}" styleClass="btn btn-blue"
+								id="limpiar">
+							</p:commandButton>
+
+						</h:panelGrid>
+
+					</div>
+
+				</p:tab>
+				<p:tab id="tapConsulta" title="Consulta / Modificación">
+
+
+					<div align="center">
+						<h:panelGrid id="camposModificar" columns="2" cellpadding="4">
+
+							<h:outputText style="    font-weight: bold; " value="Nombre : " />
+
+
+							<p:inputText style="width: 200px;" id="idNombreModificar"
+								maxlength="100" value="#{MBTiposServicio.nombreTipoModificar}">
+							</p:inputText>
+
+							<h:outputText style="    font-weight: bold; " value="Estado : " />
+
+							<p:selectOneMenu id="estado" style="width:200px"
+								value="#{MBTiposServicio.estadoModificar}">
+								<f:selectItem itemLabel="Seleccione:" itemValue="" />
+								<f:selectItem itemLabel="ACTIVO" itemValue="ACTIVO" />
+								<f:selectItem itemLabel="INACTIVO" itemValue="INACTIVO" />
+							</p:selectOneMenu>
+
+
+
+
+							<p:commandButton value="Modificar" style="width: 220px;"
+								update=":formPrincipal:tapView:camposModificar, messages1
+							,:formPrincipal:tapView:tbl"
+								action="#{MBTiposServicio.guardarModificar}"
+								styleClass="btn btn-green" id="modificar">
+							</p:commandButton>
+							<p:commandButton value="Limpiar" style="width: 220px;"
+								update=":formPrincipal:tapView:camposModificar"
+								action="#{MBTiposServicio.limpiarModificar}"
+								styleClass="btn btn-blue" id="limpiarModificar">
+							</p:commandButton>
+
+						</h:panelGrid>
+
+						<br></br>
+
+
+
+						<p:dataTable id="tbl" var="dato" selectionMode="single"
+							selection="#{MBTiposServicio.tipoServicioSeleccionado}"
+							rowKey="#{dato.idTipo}"
+							value="#{MBTiposServicio.listaTiposServicio}">
+
+
+							<p:ajax event="rowSelect"
+								listener="#{MBTiposServicio.cargarModificar}"
+								update=":formPrincipal:tapView:camposModificar" />
+
+
+							<p:column headerText="Id Tipo Servicio">
+								<h:outputText value="#{dato.idTipo}" />
+							</p:column>
+
+							<p:column headerText="Nombre Tipo Servicio">
+								<h:outputText value="#{dato.nombreTipo}" />
+
+
+
+							</p:column>
+
+							<p:column headerText="Estado ">
+								<h:outputText value="#{dato.estado}" />
+
+
+
+							</p:column>
+						</p:dataTable>
+					</div>
+				</p:tab>
+
+			</p:tabView>
+
+
+		</h:form>
+
+
+
+
+
+	</ui:define>
+
+</ui:composition>
+

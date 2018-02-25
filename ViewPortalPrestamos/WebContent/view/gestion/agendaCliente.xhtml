@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal" >
+
+
+			<div class="container" style="text-align: center;">
+			<div class="brand" style="text-align: center;">
+				<h1 class="brand_name">
+					<a href="./">Psicovirtual</a>
+				</h1>
+				<p class="brand_slogan">Agenda</p>
+			</div>
+		</div>
+
+
+			<p:growl id="messages1" sticky="true" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage library="images" name="ajax-loader.gif" />
+			</p:dialog>
+			<div>
+
+				<p:panel id="datos">
+
+
+
+
+					<h:panelGrid columnClasses="value">
+						<h3 style="margin-top: 0">Agenda</h3>
+						<p:schedule id="schedule" value="#{MBAgendarCita.eventModel}"
+							allDaySlot="true" slotMinutes="15" timeZone="GMT-5"
+							widgetVar="myschedule" locale="tr">
+
+							<p:ajax event="eventSelect"
+								listener="#{MBAgendarCita.onEventSelect}" update="eventDetails"
+								oncomplete="PF('eventDialog').show();" />
+
+						</p:schedule>
+
+
+					</h:panelGrid>
+
+					<p:dialog widgetVar="eventDialog" header="Información"
+						resizable="false" showEffect="clip" hideEffect="clip">
+						<h:panelGrid id="eventDetails" columns="2">
+							<p:outputLabel value="Asunto:" />
+							<h:outputText id="title" value="#{MBAgendarCita.event.title}" />
+
+							<p:outputLabel value="Fecha Inicio" />
+
+							<h:outputText value="#{MBAgendarCita.event.startDate}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+									timeZone="GMT-5" />
+							</h:outputText>
+
+							<p:outputLabel value="Fecha Fin:" />
+
+
+							<h:outputText value="#{MBAgendarCita.event.endDate}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+									timeZone="GMT-5" />
+							</h:outputText>
+
+
+						</h:panelGrid>
+					</p:dialog>
+
+					<br></br>
+
+
+				</p:panel>
+
+
+
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+		</h:form>
+
+		<script type="text/javascript">
+			PrimeFaces.locales['tr'] = {
+				closeText : 'Cerca',
+				prevText : 'Atras',
+				nextText : 'Adelante',
+				currentText : 'Fecha Actual',
+				monthNames : [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
+						'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',
+						'Noviembre', 'Diciembre' ],
+				monthNamesShort : [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+						'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+				dayNames : [ 'Lunes', 'Martes', 'Miercoles', 'Jueves',
+						'Viernes', 'Sabado', 'Domingo' ],
+				dayNamesShort : [ 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab',
+						'Dom' ],
+				dayNamesMin : [ 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom' ],
+				weekHeader : 'Hf',
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				month : 'Mes',
+				week : 'Semana',
+				day : 'Dia',
+				allDayText : 'Tüm Gün'
+			};
+		</script>
+
+
+	</ui:define>
+
+</ui:composition>

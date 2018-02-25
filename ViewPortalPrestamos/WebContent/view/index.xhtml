@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputScript library="js" name="validaciones2.js" />
+</h:head>
+<h:body>
+	<h:form id="form1">
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage library="images" name="ajax-loader.gif" />
+		</p:dialog>
+		<div align="center">
+			<p:growl id="messages1" sticky="true" />
+
+
+
+			<p:panel style="width: 1000px;" header="Pruebas"
+				id="formularioReporte">
+
+				<h:panelGrid id="botones" columns="1" cellpadding="4">
+					<p:commandButton value="Generar Reporte" style="width: 220px;"
+						ajax="false" action="#{MBPruebas.ejemplo}"
+						update="tbl"
+						styleClass="btn btn-green" id="generar">
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+			<p:dataTable id="tbl" var="dato" value="#{MBPruebas.listPsicologos}">
+				<p:column headerText="Nombre">
+					<h:outputText value="#{dato.nombre}" />
+				</p:column>
+
+				<p:column headerText="Apellidos">
+					<h:outputText value="#{dato.apellidos}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{dato.email}" />
+				</p:column>
+
+				<p:column headerText="Descripcion">
+					<h:outputText value="#{dato.descripcionPerfil}" />
+				</p:column>
+			</p:dataTable>
+
+		</div>
+	</h:form>
+</h:body>
+</html>
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" version="2.0">
+  <application>
+      <resource-bundle>
+          <base-name>com.psicovirtual.estandar.vista.properties.label</base-name>
+          <var>labels</var>
+      </resource-bundle>
+  </application>
+  <application>
+      <resource-bundle>
+          <base-name>com.psicovirtual.estandar.vista.properties.mensajes</base-name>
+          <var>mensajes</var>
+      </resource-bundle>
+  </application>
+  <!-- use dialog primefaces -->
+  <application>
+  	<action-listener>
+  		org.primefaces.application.DialogActionListener
+  	</action-listener>
+  	<navigation-handler>
+  		org.primefaces.application.DialogNavigationHandler
+  	</navigation-handler>
+  	<view-handler>
+  		org.primefaces.application.DialogViewHandler
+  	</view-handler>
+  </application>  
+  <managed-bean>
+      <managed-bean-name>Parametros</managed-bean-name>
+      <managed-bean-class>com.psicovirtual.estandar.vista.utilidades.ParametrosWeb</managed-bean-class>
+      <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+  <!-- MBMensajes.java -->
+  <managed-bean>
+      <managed-bean-name>MBMensajes</managed-bean-name>
+      <managed-bean-class>com.psicovirtual.estandar.vista.mb.MBMensajes</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+      <managed-bean-name>Utilidades</managed-bean-name>
+      <managed-bean-class>com.psicovirtual.estandar.vista.utilidades.UtilidadesWeb</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+      <managed-bean-name>MBUsuario</managed-bean-name>
+      <managed-bean-class>com.psicovirtual.estandar.vista.mb.MBUsuario</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+</faces-config>

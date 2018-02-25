@@ -1,0 +1,109 @@
+(function (window, $) {
+    /*var admin = {
+
+    };
+    
+    window.admin = amdin;*/
+    
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+        
+    $(document).ready(function() {
+        $('.tooltip-x').tooltipster({
+            theme: 'tooltipster-borderless'
+        });
+        
+        $("#btnAdicionarReg").click(function (e) {
+            e.preventDefault();
+            var $html = $("#detalle").html();
+            var $o = $($.parseHTML($html));
+            /*var $cnt = $("#registros > div.row").size();
+             $o.attr("id", "registro" + $cnt + Math.floor((Math.random() * 1000) + 1));
+             hookRegistro($o, true);*/
+            $("#detalles").append($o);
+        });
+        
+        $("#btnEnviarCotizacion").click(function(e) {
+            e.preventDefault();            
+                        
+            if ($("#nombre").val() === ''){
+                alert('Debe ingresar el nombre del cliente');
+                $("#nombre").focus();
+                return;
+            }
+            
+            if ($("#apellido").val() === ''){
+                alert('Debe ingresar el apellido del cliente');
+                $("#apellido").focus();
+                return;
+            }
+            
+            if ($("#email").val() === ''){
+                alert('Debe ingresar la dirección de correo del cliente');
+                $("#email").focus();
+                return;
+            }
+            
+            if ($("#ciudad").val() === ''){
+                alert('Debe ingresar la ciudad de destino');
+                $("#ciudad").focus();
+                return;
+            }
+            
+            if (!isEmail($("#email").val())){
+                alert('La dirección de correo no es válida');
+                $("#email").focus();
+                return;
+            }
+            
+            var $error = false;
+            $("input[rel=nombre_detalle]").each(function(i, o) {
+                if ($(o).val() === ''){
+                    alert('Debe ingresar todos los nombre de los productos');
+                    $error = true;
+                    return;
+                }
+            });
+            
+            if ($error === true){
+                return;
+            }
+            
+            $("input[rel=url_detalle]").each(function(i, o) {
+                if ($(o).val() === '' && $("#observaciones").val() === ''){
+                    alert('Hay productos sin enlace y tampoco se ha especificado datos en las observaciones');
+                    $error = true;
+                    return;
+                }
+            });
+            
+            if ($error === true){
+                return;
+            }
+            
+            $("#loader").addClass("loading");
+            $.ajax({
+                url: $("#form_cotizacion").attr("action"),
+                method: 'post',
+                data: $("#form_cotizacion").serialize()
+            })
+            .done(function(res) {
+                $("#loader").removeClass("loading");
+                window.location.href = res;
+                //window.location.reload();
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                $("#loader").removeClass("loading");
+                alert(jqXHR.responseJSON.error.message);
+            });
+        });
+        
+        $("#telefono").keypress(function(e) {
+            if (e.which < 48 || e.which > 57){
+                e.preventDefault();
+            }
+        });
+    });
+})(window, jQuery);

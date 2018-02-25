@@ -1,0 +1,147 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+	
+<div class="container" style="text-align: center;">
+			<div class="brand" style="text-align: center;">
+				<h1 class="brand_name">
+					<a href="./">Psicovirtual</a>
+				</h1>
+				<p class="brand_slogan">Horarios</p>
+			</div>
+		</div>
+
+			<p:growl id="messages1" sticky="true" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage library="images" name="ajax-loader.gif" />
+			</p:dialog>
+			<div>
+
+				<p:panel id="datos">
+
+					<div class="ui-g">
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Nombre: " />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-9">
+							<h:outputText id="d1" maxlength="100"
+								value="#{MBPsicologos.psicologoSelecionado.nombre} #{MBPsicologos.psicologoSelecionado.apellidos}">
+							</h:outputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Fecha Inicial: " />
+						</div>
+
+
+						<div class="ui-g-12 ui-md-6 ui-lg-9">
+							<p:calendar id="mask2" pattern="MM/dd/yyyy HH:mm"
+								value="#{MBPsicologos.fechaInicial}" />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Fecha Final: " />
+						</div>
+
+
+						<div class="ui-g-12 ui-md-6 ui-lg-9">
+							<p:calendar id="time" pattern="MM/dd/yyyy HH:mm"
+								value="#{MBPsicologos.fechaFinal}" />
+						</div>
+
+					</div>
+
+
+
+					<br></br>
+					<div style="text-align: center;">
+
+
+
+
+						<p:commandButton value="Agregar" style="width: 220px;"
+							onstart="PF('statusDialog').show();  "
+							oncomplete="PF('statusDialog').hide();"
+							update="tblHora,messages1"
+							action="#{MBPsicologos.guardarHorario(MBLogin.user)}" styleClass="btn btn-blue"
+							id="guardar1">
+						</p:commandButton>
+
+
+
+
+
+					</div>
+
+
+					<br></br>
+					<p:dataTable var="dato" id="tblHora"
+						value="#{MBPsicologos.listaHorarios}">
+						<f:facet name="header">
+   						     Horarios
+    					</f:facet>
+
+
+						<p:column headerText="Fecha Inicio">
+
+
+
+							<h:outputText value="#{dato.fechaInicial}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+									timeZone="GMT-5" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Fecha Final">
+							<h:outputText value="#{dato.fechaFinal}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+									timeZone="GMT-5" />
+							</h:outputText>
+						</p:column>
+						
+						<p:column headerText="Estado">
+							<p:commandButton value="#{dato.estado}" update="tblHora"
+								action="#{MBPsicologos.inactivar(dato)}"></p:commandButton>
+						</p:column>
+
+
+					</p:dataTable>
+
+				</p:panel>
+
+
+
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+		</h:form>
+
+
+
+
+	</ui:define>
+
+</ui:composition>

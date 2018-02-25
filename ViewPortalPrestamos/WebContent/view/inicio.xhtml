@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputScript library="js" name="validaciones2.js" />
+</h:head>
+<h:body>
+	<h:form id="form1">
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage library="images" name="ajax-loader.gif" />
+		</p:dialog>
+		<div align="center">
+			<p:growl id="messages1" sticky="true" />
+
+			<p:panel style="width: 1000px;" header="Acceso Clientes"
+				id="formularioReporte">
+
+				<h:panelGrid id="botones" columns="1" cellpadding="4">
+
+					<h:outputText style="background-color: none; " value="Usuario : " />
+
+					<p:inputText style="width: 200px;" id="idNick" maxlength="12"
+						value="#{MBUsuarios.vUsuario.usuario}">
+					</p:inputText>
+
+					<p:password style="width: 200px;" id="idPassword" maxlength="12"
+						value="#{MBUsuarios.vUsuario.contraseña}">
+					</p:password>
+
+					<p:commandButton value="Iniciar" style="width: 220px;" ajax="false"
+						action="#{MBUsuarios.iniciarSesion}" update="tbl"
+						styleClass="btn btn-green" id="idInicio">
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+		</div>
+	</h:form>
+</h:body>
+</html>
+

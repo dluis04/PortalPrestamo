@@ -1,0 +1,124 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+		<div class="container" style="text-align: center;">
+			<div class="brand" style="text-align: center;">
+				<h1 class="brand_name">
+					<a href="./">Psicovirtual</a>
+				</h1>
+				<p class="brand_slogan">Consulta Cita</p>
+			</div>
+		</div>
+	
+
+			<p:tabView id="tapView">
+
+				<p:tab id="tapRegistro" title="Consulta / Cancelacion">
+
+					<p:growl id="messages1" sticky="true" />
+
+					<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+						closable="false" resizable="false" showHeader="false">
+						<p:graphicImage library="images" name="ajax-loader.gif" />
+					</p:dialog>
+					<div align="center">
+
+						<h:panelGrid id="campos" columns="2" cellpadding="4">
+
+							<p:dataTable id="tbl" var="dato"
+								value="#{MBCita.listCitasPendientes}">
+
+								<p:column headerText="Id Cita">
+									<h:outputText value="#{dato.idCita}" />
+								</p:column>
+
+								<p:column headerText="Fecha Inicial Cita">
+									<h:outputText value="#{dato.horario.fechaInicial}">
+										<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-5" />
+									</h:outputText>
+								</p:column>
+
+								<p:column headerText="Nombre Psicologo">
+									<h:outputText
+										value="#{dato.clientesPsicologo.usuario2.nombre} #{dato.clientesPsicologo.usuario2.apellidos}" />
+								</p:column>
+
+								<p:column headerText="Valor a pagar">
+									<h:outputText value="#{dato.valorPago}" />
+								</p:column>
+
+								<p:column headerText="Estado Pago">
+									<h:outputText value="#{dato.estadoPago}" />
+								</p:column>
+
+								<p:column headerText="Acciones">
+									<p:commandButton value="Cancelar Cita"
+										action="#{MBCita.cancelarCita(dato)}"
+										update="formPrincipal:tapView">
+										<p:confirm header="Confirmation"
+											message="¿ Esta seguro que desea cancelar la cita ?" />
+									</p:commandButton>
+
+									<p:commandButton value="Pagar Cita"
+										action="#{MBCita.pagarCita(dato)}"
+										update="formPrincipal:tapView:casa"
+										>
+							
+									</p:commandButton>
+								</p:column>
+
+							</p:dataTable>
+							<p:dialog header="¿ Esta seguro que pagar la cita ?" widgetVar="dlg2" modal="true"
+							id="casa"
+							resizable="false"
+								height="100">
+								<h:panelGrid id="camp2os" columns="2" cellpadding="4">
+
+									<h:outputText style="    font-weight: bold; " value="Valor : " />
+
+									<h:outputText style="    font-weight: bold; " value="#{MBCita.valorCita} " />
+						
+									<p:commandButton value="Pagar" style="width: 220px;"
+										
+										oncomplete="PF('dlg2').hide();"
+									update="formPrincipal:tapView"
+									
+									action="#{MBCita.paga}"
+										styleClass="btn btn-green"
+										id="gfuardar">
+									</p:commandButton>
+								
+								</h:panelGrid>
+
+							</p:dialog>
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Si" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="No" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+
+						</h:panelGrid>
+
+					</div>
+
+				</p:tab>
+
+
+
+			</p:tabView>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

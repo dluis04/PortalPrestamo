@@ -1,0 +1,267 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal" enctype="multipart/form-data" >
+
+
+		
+
+	<div class="container" style="text-align: center;">
+			<div class="brand" style="text-align: center;">
+				<h1 class="brand_name">
+					<a href="./">Psicovirtual</a>
+				</h1>
+				<p class="brand_slogan">Modificar Psicologos</p>
+			</div>
+		</div>
+
+			<p:growl id="messages1" life="60000" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage library="images" name="ajax-loader.gif" />
+			</p:dialog>
+			<div align="left">
+
+				<p:panel id="datos">
+
+
+
+
+
+
+					<div class="ui-g">
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Nombre : " />
+
+
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+
+							<p:inputText style="width: 200px;" id="d1" maxlength="100"
+								required="true" requiredMessage="Debe Ingresar El Nombre"
+								value="#{MBUsuarios.nombre2}">
+							</p:inputText>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Usuario : " />
+
+
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+							<p:inputText style="width: 200px;" id="d2" maxlength="100"
+								required="true" requiredMessage="Debe Ingresar El Usuario"
+								value="#{MBUsuarios.usuario2}">
+							</p:inputText>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Apellido: " />
+
+
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+
+							<p:inputText style="width: 200px;" id="d3" maxlength="100"
+								required="true" requiredMessage="Debe Ingresar El Apellido"
+								value="#{MBUsuarios.apellido2}">
+							</p:inputText>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Contraseña : " />
+
+
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+							<p:password style="width: 200px;" id="d4" maxlength="100"
+								required="true" requiredMessage="Debe Ingresar La Contraseña"
+								value="#{MBUsuarios.contrasena2}">
+							</p:password>
+						</div>
+
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Fecha Nacimiento : " />
+
+
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+
+							<p:calendar style="width: 200px;" id="d5" maxlength="100"
+								required="true"
+								requiredMessage="Debe Ingresar La Fecha De Nacimiento"
+								value="#{MBUsuarios.fechaNacimiento2}">
+							</p:calendar>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Repetir Contraseña : " />
+
+
+						</div>
+
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+							<p:password style="width: 200px;" id="d6" maxlength="100"
+								required="true"
+								requiredMessage="Debe Ingresar la Confirmación de la Contraseña"
+								value="#{MBUsuarios.repetirContrasena2}">
+							</p:password>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Correo Electronico : " />
+
+
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+
+							<p:inputText style="width: 200px;" id="d51" maxlength="100"
+								label="Correo Electronico" validatorMessage="Correo No valido"
+								required="true" requiredMessage="Debe Ingresar El Correo"
+								value="#{MBUsuarios.correo2}">
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Direccion : " />
+
+
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+
+							<p:inputText style="width: 200px;" id="d7" maxlength="100"
+								required="true" requiredMessage="Debe Ingresar La Dirección"
+								value="#{MBUsuarios.direccion2}">
+							</p:inputText>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Teléfono : " />
+
+
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+							<p:inputText style="width: 200px;" id="d8" maxlength="7"
+								required="true" requiredMessage="Debe Ingresar El Teléfono"
+								onkeyup="javascript:this.value = stripNonNumeric(this.value);"
+								value="#{MBUsuarios.telefono2}">
+
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Celular : " />
+
+
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+
+							<p:inputText style="width: 200px;" id="d9" maxlength="10"
+								required="true" requiredMessage="Debe Ingresar El Celular"
+								onkeyup="javascript:this.value = stripNonNumeric(this.value);"
+								value="#{MBUsuarios.celular2}">
+							</p:inputText>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Descripción Perfil : " />
+
+
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+							<p:inputTextarea value="#{MBUsuarios.descripcionPerfil2}"
+								required="true"
+								requiredMessage="Debe Ingresar La Descripción Del Perfil"></p:inputTextarea>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+							<h:outputText style="    font-weight: bold; " value="Foto : " />
+
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+							<p:fileUpload allowTypes="/(\.|\/)(jpg)$/"
+								value="#{MBUsuarios.fotoUsuario}" mode="simple"
+								skinSimple="true" />
+
+						</div>
+
+
+						<div class="ui-g-12 ui-md-6 ui-lg-4">
+							<p:commandButton value="Guardar" style="width: 220px;"
+								onstart="PF('statusDialog').show();  " ajax="false"
+								oncomplete="PF('statusDialog').hide();" update="messages1"
+								actionListener="#{MBUsuarios.modificarUsuario}"
+								styleClass="btn btn-green" id="guardar">
+							</p:commandButton>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-4">
+							<p:commandButton value="Limpiar" style="width: 220px;"
+								onstart="PF('statusDialog').show();  "
+								oncomplete="PF('statusDialog').hide();" immediate="true"
+								resetValues="true" update=":formPrincipal:datos"
+								action="#{MBUsuarios.limpiarUsuario}" styleClass="btn btn-blue"
+								id="limpiar">
+							</p:commandButton>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-4">
+							<p:commandButton value="Regresar" style="width: 220px;"
+								onstart="PF('statusDialog').show();  "
+								oncomplete="PF('statusDialog').hide();"
+								action="#{MBUsuarios.limpiarUsuario}" styleClass="btn btn-blue"
+								id="regresar">
+							</p:commandButton>
+						</div>
+
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+				</p:panel>
+			</div>
+
+
+
+
+		</h:form>
+
+
+
+
+	</ui:define>
+
+</ui:composition>

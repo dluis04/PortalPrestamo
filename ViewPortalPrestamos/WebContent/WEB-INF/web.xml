@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+ 
+  <display-name>PrimeFaces Web Application</display-name>
+ 	<!-- FACELETS_VIEW_MAPPINGS -->
+ 	<context-param>
+		<param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
+		<param-value>*.jsf;*.xhtml</param-value>
+	</context-param>
+	<context-param>
+        <description>TRUE O FALSE INDICANDO SI LA APLICACION SE ESTA EJECUTANDO EN AMBIENTE DE DESARROLLO O PRODUCCION</description>
+        <param-name>AMBIENTE_CONSOLA_PRODUCCION</param-name>
+        <param-value>false</param-value>
+    </context-param>
+	
+  	<!-- Change to "Production" when you are ready to deploy -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	
+	<context-param>
+        <description>DETERMINAR LA RUTA DEL SERVIDOR AL QUE SE DEBEN ENVIAR LAS PETICIONES A LA CONSOLA</description>
+        <param-name>URL_SERVIDOR</param-name>
+        <param-value>http://apps2.fenalcovalle.com:7777/consola</param-value>
+    </context-param>
+	<!-- Theme param -->
+	<context-param>
+	    <param-name>primefaces.THEME</param-name>
+	    <param-value>excite-bike</param-value>
+	</context-param>
+
+	<!-- Welcome page -->
+	<welcome-file-list>
+		<welcome-file>faces/index.xhtml</welcome-file>
+	</welcome-file-list>
+ 
+	<!-- JSF mapping -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+ 
+	<!-- Map these files with JSF -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
+    <context-param>
+		<param-name>com.sun.faces.numberOfViewsInSession</param-name>
+		<param-value>3</param-value>
+	</context-param>
+	<context-param>
+		<param-name>com.sun.faces.numberOfLogicalViews</param-name>
+		<param-value>6</param-value>
+	</context-param>
+	<context-param>
+        <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <filter>
+        <filter-name>BMConsolaFilter</filter-name>
+        <filter-class>co.bmsoft.consola.clientapp.control.BMConsolaFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>BMConsolaFilter</filter-name>
+        <url-pattern>*.xhtml</url-pattern>
+        <url-pattern>*.jsf</url-pattern>
+    </filter-mapping>
+    <session-config>
+        <session-timeout>-1</session-timeout>
+    </session-config>
+    <!-- Needed for Awesome Font/Icons -->
+	<mime-mapping>
+	  <extension>eot</extension>
+	  <mime-type>application/vnd.ms-fontobject</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+	  <extension>otf</extension>
+	  <mime-type>font/opentype</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+	  <extension>ttf</extension>
+	  <mime-type>application/x-font-ttf</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+	  <extension>woff</extension>
+	  <mime-type>application/x-font-woff</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+	  <extension>svg</extension>
+	  <mime-type>image/svg+xml</mime-type>
+	</mime-mapping>
+	
+	
+	
+	
+</web-app>
