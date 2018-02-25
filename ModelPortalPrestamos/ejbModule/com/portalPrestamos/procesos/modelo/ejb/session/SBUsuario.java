@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import com.portalPrestamos.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 
+
 /**
  * Session Bean implementation class SBUsuario
  */

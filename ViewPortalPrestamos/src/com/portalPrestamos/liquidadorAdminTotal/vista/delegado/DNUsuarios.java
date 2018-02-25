@@ -1,9 +1,10 @@
 package com.portalPrestamos.liquidadorAdminTotal.vista.delegado;
 
+
+
+
+
 import javax.annotation.ManagedBean;
-
-
-
 import javax.enterprise.context.ApplicationScoped;
 import com.portalPrestamos.estandar.modelo.utilidades.Parametros;
 import com.portalPrestamos.estandar.vista.utilidades.ServiceLocator;
