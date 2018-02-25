@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-02-2018 a las 22:15:50
+-- Tiempo de generación: 25-02-2018 a las 23:37:02
 -- Versión del servidor: 10.1.30-MariaDB
 -- Versión de PHP: 7.2.1
 
@@ -44,11 +44,18 @@ CREATE TABLE `ACCIONES_MODULOS` (
 CREATE TABLE `CONFIGURACION_APP` (
   `ID_CONFIGURACION` int(11) NOT NULL,
   `CONF_NOMBRE` varchar(100) DEFAULT NULL,
-  `CONF_DESCRIPCION` varchar(40) DEFAULT NULL,
+  `CONF_DESCRIPCION` varchar(250) DEFAULT NULL,
   `CONF_VALOR` int(11) DEFAULT NULL,
   `CONF_TIPO_VALOR` varchar(10) DEFAULT NULL,
   `CONF_FECHA_REGIS` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `CONFIGURACION_APP`
+--
+
+INSERT INTO `CONFIGURACION_APP` (`ID_CONFIGURACION`, `CONF_NOMBRE`, `CONF_DESCRIPCION`, `CONF_VALOR`, `CONF_TIPO_VALOR`, `CONF_FECHA_REGIS`) VALUES
+(1, 'Maximo intentos inicio sesión', 'Validación de máximo intentos ', 5, 'CANTIDAD', '2018-02-25');
 
 -- --------------------------------------------------------
 
@@ -152,7 +159,8 @@ INSERT INTO `LOG_SESIONES` (`ID_LOG_SESION`, `LGS_USUARIO`, `LGS_PASSWORD`, `LGS
 (1, 'dluis', '222', 'INCORRECTO', 1, '2018-02-25'),
 (2, 'dluis', '333', 'INCORRECTO', 2, '2018-02-25'),
 (3, 'dluis', '123', 'CORRECTO', 3, '2018-02-25'),
-(4, 'dluis', '123456', 'INCORRECTO', 4, '2018-02-25');
+(4, 'dluis', '123456', 'INCORRECTO', 4, '2018-02-25'),
+(5, 'dluis', '445', 'INCORRECTO', 5, '2018-02-25');
 
 -- --------------------------------------------------------
 
@@ -540,7 +548,7 @@ ALTER TABLE `ACCIONES_MODULOS`
 -- AUTO_INCREMENT de la tabla `CONFIGURACION_APP`
 --
 ALTER TABLE `CONFIGURACION_APP`
-  MODIFY `ID_CONFIGURACION` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_CONFIGURACION` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `CUOTA_MORA`
@@ -576,7 +584,7 @@ ALTER TABLE `ESTADO`
 -- AUTO_INCREMENT de la tabla `LOG_SESIONES`
 --
 ALTER TABLE `LOG_SESIONES`
-  MODIFY `ID_LOG_SESION` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_LOG_SESION` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `MODULOS`

@@ -16,8 +16,6 @@ import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 @SessionScoped
 public class MBLogin {
 	MBMensajes mensajes = new MBMensajes();
-	private String user;
-	private String pass;
 	private Usuario vUsuario;
 	DNUsuarios dnUsuarios;
 	DNLogSesiones dnLogSesiones;
@@ -34,7 +32,6 @@ public class MBLogin {
 
 		if (dnUsuarios.consultarUsuarioInicio(vUsuario) == 1) {
 			logSesionUsuario(vUsuario, "CORRECTO");
-			vLogSesiones.setLgsIntentoFallido(vLogSesiones.getLgsIntentoFallido() + 1);
 
 			FacesContext context = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = context.getExternalContext();
@@ -65,6 +62,7 @@ public class MBLogin {
 
 		int intentosSesion = 0;
 		intentosSesion = dnLogSesiones.consultarIntentosFallidos(user);
+		
 
 		vLogSesiones.setLgsUsuario(user.getUsuUsuario());
 		vLogSesiones.setLgsPassword(user.getUsuPassword());
@@ -120,22 +118,6 @@ public class MBLogin {
 
 	public void setMensajes(MBMensajes mensajes) {
 		this.mensajes = mensajes;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
-	}
-
-	public String getPass() {
-		return pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
 	}
 
 	public DNUsuarios getDnUsuarios() {

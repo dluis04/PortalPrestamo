@@ -11,8 +11,5 @@ public interface SBLogSesionesLocal {
 
 	public int consultarIntentosFallidos(Usuario user)  throws BaseException;
 	public LogSesione registrarLogSesion(LogSesione log) throws BaseException;
-	
-	
-	
-	
+		
 }
