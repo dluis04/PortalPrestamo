@@ -22,8 +22,8 @@ public class DNConfiguracionApp {
 				SBConfiguracionAppLocal.class);
 	}
 
-	public int consultaIntentosInicioSesion(int idConfiguracion) throws BaseException{
-		return sBConfiguracionApp.consultaIntentosInicioSesion(idConfiguracion);
+	public int consultaConfiguracionIntentosInicioSesion(int idConfiguracion) throws BaseException{
+		return sBConfiguracionApp.consultaConfiguracionIntentosInicioSesion(idConfiguracion);
 	}
 
 }

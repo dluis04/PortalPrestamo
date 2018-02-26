@@ -8,6 +8,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import com.portalPrestamos.estandar.vista.mb.MBMensajes;
+import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNConfiguracionApp;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNLogSesiones;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNUsuarios;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.LogSesione;
@@ -15,12 +16,14 @@ import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 
 @ManagedBean(name = "MBLogin")
 @SessionScoped
-public class MBLogin implements Serializable{
+public class MBLogin implements Serializable {
 	MBMensajes mensajes = new MBMensajes();
 	private Usuario vUsuario;
 	DNUsuarios dnUsuarios;
 	DNLogSesiones dnLogSesiones;
+	DNConfiguracionApp dnConfigApp;
 	private LogSesione vLogSesiones;
+	private int intentosSesion = 0;
 
 	public MBLogin() {
 		vUsuario = new Usuario();
@@ -30,19 +33,24 @@ public class MBLogin implements Serializable{
 	public void iniciarSesion() throws Exception {
 
 		inicializarDelegados();
+		intentosSesion = dnLogSesiones.consultarIntentosFallidos(vUsuario);
+		int valorConfigIntentos=dnConfigApp.consultaConfiguracionIntentosInicioSesion(1);
+		
+		if (intentosSesion < valorConfigIntentos) {
+			if (dnUsuarios.consultarUsuarioInicio(vUsuario) == 1) {
+				logSesionUsuario(vUsuario, "CORRECTO");
 
-		if (dnUsuarios.consultarUsuarioInicio(vUsuario) == 1) {
-			logSesionUsuario(vUsuario, "CORRECTO");
-
-			FacesContext context = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = context.getExternalContext();
-			String url2 = externalContext.encodeActionURL(context.getApplication().getViewHandler()
-					.getActionURL(context, "/view/usuarios/CrearCuentaUsuario.xhtml"));
-			externalContext.redirect(url2);
-		} else {
-			logSesionUsuario(vUsuario, "INCORRECTO");
+				FacesContext context = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = context.getExternalContext();
+				String url2 = externalContext.encodeActionURL(context.getApplication().getViewHandler()
+						.getActionURL(context, "/view/usuarios/CrearCuentaUsuario.xhtml"));
+				externalContext.redirect(url2);
+			} else {
+				logSesionUsuario(vUsuario, "INCORRECTO");
+			}
+		}else {
+			System.out.println("Usuario Bloqueado por maximo intentos permitidos");
 		}
-
 	}
 
 	private void inicializarDelegados() throws Exception {
@@ -55,21 +63,22 @@ public class MBLogin implements Serializable{
 			dnLogSesiones = new DNLogSesiones();
 		}
 
+		if (dnConfigApp == null) {
+			dnConfigApp = new DNConfiguracionApp();
+		}
+
 	}
 
 	private void logSesionUsuario(Usuario user, String status) throws Exception {
 
 		inicializarDelegados();
 
-		int intentosSesion = 0;
-		intentosSesion = dnLogSesiones.consultarIntentosFallidos(user);
-
 		vLogSesiones.setLgsUsuario(user.getUsuUsuario());
 		vLogSesiones.setLgsPassword(user.getUsuPassword());
 		vLogSesiones.setLgsStatusIntento(status);
 		if (status.equals("CORRECTO")) {
 			vLogSesiones.setLgsIntentoFallido(0);
-		}else {
+		} else {
 			vLogSesiones.setLgsIntentoFallido(intentosSesion + 1);
 		}
 		Date fecha = new Date();

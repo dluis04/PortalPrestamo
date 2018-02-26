@@ -24,7 +24,7 @@ public class SBConfiguracionApp implements SBConfiguracionAppLocal {
 	}
 
 	@Override
-	public int consultaIntentosInicioSesion(int idConfiguracion) throws BaseException {
+	public int consultaConfiguracionIntentosInicioSesion(int idConfiguracion) throws BaseException {
 		int retornValor = 0;
 
 		String query = "SELECT c.confValor FROM ConfiguracionApp c where c.idConfiguracion='" + idConfiguracion + "' ";

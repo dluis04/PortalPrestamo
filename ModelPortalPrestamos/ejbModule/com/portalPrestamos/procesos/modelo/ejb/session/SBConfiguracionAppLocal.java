@@ -7,6 +7,6 @@ import com.portalPrestamos.estandar.modelo.excepciones.BaseException;
 @Local
 public interface SBConfiguracionAppLocal {
 	
-	public int consultaIntentosInicioSesion(int idConfiguracion) throws BaseException;
+	public int consultaConfiguracionIntentosInicioSesion(int idConfiguracion) throws BaseException;
 
 }
