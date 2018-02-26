@@ -1,10 +1,9 @@
 package com.portalPrestamos.procesos.modelo.ejb.session;
 
+import java.util.HashMap;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-
 import com.portalPrestamos.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
 import com.portalPrestamos.estandar.modelo.excepciones.BaseException;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.LogSesione;
@@ -30,16 +29,18 @@ public class SBLogSesiones implements SBLogSesionesLocal {
 	public int consultarIntentosFallidos(Usuario user) throws BaseException {
 		int retorna = 0;
 
-		String query = "SELECT max(l.lgsIntentoFallido) FROM LogSesione l where l.lgsUsuario='" + user.getUsuUsuario()
-				+ "' ";
+		String query = "SELECT ID_LOG_SESION,LGS_INTENTO_FALLIDO FROM LOG_SESIONES WHERE LGS_USUARIO=?1 order by ID_LOG_SESION desc LIMIT 1";
+
+		HashMap parametros = new HashMap();
 		
-		List listUsuario = sbFacade.executeQuery(query, null);
+		parametros.put("1", user.getUsuUsuario());
+		List<Object[]> registrosList = sbFacade.executeNativeQuery(query, parametros);
 
-		for (int i = 0; i < listUsuario.size(); i++) {
-			retorna = Integer.parseInt(listUsuario.get(i) + "");
+		for (int i = 0; i < registrosList.size(); i++) {
+			retorna = Integer.parseInt(registrosList.get(i)[1] + "");
 		}
-
 		return retorna;
+
 	}
 
 	@Override

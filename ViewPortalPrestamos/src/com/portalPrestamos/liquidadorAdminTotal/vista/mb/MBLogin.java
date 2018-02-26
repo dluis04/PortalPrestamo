@@ -1,5 +1,6 @@
 package com.portalPrestamos.liquidadorAdminTotal.vista.mb;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -14,7 +15,7 @@ import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 
 @ManagedBean(name = "MBLogin")
 @SessionScoped
-public class MBLogin {
+public class MBLogin implements Serializable{
 	MBMensajes mensajes = new MBMensajes();
 	private Usuario vUsuario;
 	DNUsuarios dnUsuarios;
