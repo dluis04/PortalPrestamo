@@ -132,7 +132,7 @@ a {
 
 
 
-				<p:submenu label="Gestion" rendered="#{MBLogin.gestion}"
+				<p:submenu label="Gestion" 
 					icon="ui-icon-contact">
 
 					<p:menuitem value="Estado Cliente"
@@ -150,43 +150,42 @@ a {
 						url="/view/gestion/tiposUsuario.xhtml" />
 
 				</p:submenu>
-				<p:submenu rendered="#{MBLogin.usuarios}" label="Citas"
+				<p:submenu label="Citas"
 					icon="ui-icon-contact">
 
 					<p:menuitem value="Consulta Citas"
-						onstart="#{MBCita.cargarCitasPendienteCliente(MBLogin.user)}"
+			
 						url="/view/gestion/Citas.xhtml" />
 
 					<p:menuitem value="Agendar Citas"
-						onstart="#{MBAgendarCita.cargar(MBLogin.user)}"
+					
 						url="/view/gestion/agendarCita.xhtml" />
 
 					<p:menuitem value="Agenda"
-						onstart="#{MBAgendarCita.cargarUsuario(MBLogin.user)}"
+					
 						url="/view/gestion/agendaCliente.xhtml" />
 
 				</p:submenu>
 
 				<p:menuitem value="Busqueda Psicologos"
-					rendered="#{MBLogin.usuarios}" onstart="#{MBPsicologos.iniciar}"
+				
 					url="/view/gestion/busquedaPsicologos.xhtml" />
 
 
 				<p:menuitem value="Experiencias Pacientes"
-					rendered="#{MBLogin.usuarios}"
-					onstart="#{MBComentarios.cargarListados(MBLogin.user)}"
+					
 					url="/view/gestion/ExperienciasPsicologos.xhtml" />
 
 
-				<p:submenu rendered="#{MBLogin.psicologos}" label="Citas"
+				<p:submenu label="Citas"
 					icon="ui-icon-contact">
 
 					<p:menuitem value="Horarios"
-						onstart="#{MBPsicologos.cargarHorario(MBLogin.user)}"
+					
 						url="/view/gestion/horarios.xhtml" />
 
 					<p:menuitem value="Agendar Citas Psicogolo"
-						onstart="#{MBAgendarCitaPsico.cargar(MBLogin.user)}"
+						
 						url="/view/gestion/agendarCitaPsicologo.xhtml" />
 
 
@@ -194,18 +193,18 @@ a {
 
 				</p:submenu>
 
-				<p:menuitem value="Servicios" rendered="#{MBLogin.psicologos}"
-					onstart="#{MBServicio.cargarDatos(MBLogin.user)}"
+				<p:menuitem value="Servicios" 
+				
 					url="/view/gestion/Servicios.xhtml" />
 
-				<p:menuitem value="Historia Clinica" rendered="#{MBLogin.psicologos}"
-					onstart="#{MBHistoriaClinica.cargarCitadasPagadas(MBLogin.user)}"
+				<p:menuitem value="Historia Clinica" 
+	
 					url="/view/gestion/HistoriaClinica.xhtml" />
 
 
 
 				<p:menuitem value="Temas" url="/view/gestion/tema.xhtml"
-					rendered="#{MBLogin.psicologos}" />
+					/>
 
 
 
@@ -217,14 +216,14 @@ a {
 			
 
 				<p:menuitem value="Modificar Usuario"
-					onstart="#{MBUsuarios.cargarUsuario(MBLogin.user)}"
+				
 					url="/view/usuarios/modificarUsuario.xhtml" />
 
 				<f:facet name="options">
 
 
 					<p:outputLabel style="margin-right:15px;font-weight: bold;"
-						value="#{MBLogin.user}" />
+						/>
 					<p:commandButton value="Cerrar Sesión"
 						actionListener="#{MBLogin.cerrarSesion}" icon="ui-icon-extlink" />
 				</f:facet>

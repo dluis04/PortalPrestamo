@@ -28,19 +28,19 @@ public class MBLogin {
 
 	public void iniciarSesion() throws Exception {
 
-		inicializarDelegados();
+//		inicializarDelegados();
 
-		if (dnUsuarios.consultarUsuarioInicio(vUsuario) == 1) {
-			logSesionUsuario(vUsuario, "CORRECTO");
+//		if (dnUsuarios.consultarUsuarioInicio(vUsuario) == 1) {
+//			logSesionUsuario(vUsuario, "CORRECTO");
 
 			FacesContext context = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = context.getExternalContext();
 			String url2 = externalContext.encodeActionURL(context.getApplication().getViewHandler()
-					.getActionURL(context, "/view/usuarios/CrearCuentaUsuario.xhtml"));
+					.getActionURL(context, "/view/gestion/bienvenido.xhtml"));
 			externalContext.redirect(url2);
-		} else {
-			logSesionUsuario(vUsuario, "INCORRECTO");
-		}
+//		} else {
+//			logSesionUsuario(vUsuario, "INCORRECTO");
+//		}
 
 	}
 
