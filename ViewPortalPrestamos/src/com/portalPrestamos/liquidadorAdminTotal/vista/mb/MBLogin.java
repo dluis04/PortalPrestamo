@@ -1,6 +1,7 @@
 package com.portalPrestamos.liquidadorAdminTotal.vista.mb;
 
 import java.io.Serializable;
+
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -10,35 +11,50 @@ import javax.servlet.http.HttpSession;
 import com.portalPrestamos.estandar.vista.mb.MBMensajes;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNConfiguracionApp;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNLogSesiones;
+import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNStatusUsuario;
+import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNTipoBloqueo;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNUsuarios;
+import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNUsuariosBloqueados;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.LogSesione;
+import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.StatusUsuario;
+import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.TiposBloqueo;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
+import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.UsuariosBloqueado;
 
 @ManagedBean(name = "MBLogin")
 @SessionScoped
 public class MBLogin implements Serializable {
-	MBMensajes mensajes = new MBMensajes();
+
+	MBMensajes mensajes;
 	private Usuario vUsuario;
 	DNUsuarios dnUsuarios;
 	DNLogSesiones dnLogSesiones;
 	DNConfiguracionApp dnConfigApp;
+	DNStatusUsuario dNStatusUsuario;
+	DNTipoBloqueo dNTipoBloqueo;
+	DNUsuariosBloqueados dNUsuariosBloqueados;
 	private LogSesione vLogSesiones;
 	private int intentosSesion = 0;
+	boolean isBloqueado = false;
 
 	public MBLogin() {
 		vUsuario = new Usuario();
 		vLogSesiones = new LogSesione();
+		mensajes = new MBMensajes();
 	}
 
 	public void iniciarSesion() throws Exception {
 
 		inicializarDelegados();
 		intentosSesion = dnLogSesiones.consultarIntentosFallidos(vUsuario);
-		int valorConfigIntentos=dnConfigApp.consultaConfiguracionIntentosInicioSesion(1);
-		
+		int valorConfigIntentos = dnConfigApp.consultaConfiguracionIntentosInicioSesion(1);
+
 		if (intentosSesion < valorConfigIntentos) {
 			if (dnUsuarios.consultarUsuarioInicio(vUsuario) == 1) {
+
 				logSesionUsuario(vUsuario, "CORRECTO");
+				vUsuario.setUsuUsuario("");
+				isBloqueado = false;
 
 				FacesContext context = FacesContext.getCurrentInstance();
 				ExternalContext externalContext = context.getExternalContext();
@@ -48,25 +64,54 @@ public class MBLogin implements Serializable {
 			} else {
 				logSesionUsuario(vUsuario, "INCORRECTO");
 			}
-		}else {
-			System.out.println("Usuario Bloqueado por maximo intentos permitidos");
+		} else {
+			mensajes.mostrarMensaje("Usuario Bloqueado por maximo intentos permitidos", 2);
+			logSesionUsuario(vUsuario, "BLOQUEADO");
+			if (!isBloqueado) {
+				bloquearUsuario();
+			}
 		}
 	}
 
-	private void inicializarDelegados() throws Exception {
+	private void bloquearUsuario() throws Exception {
 
-		if (dnUsuarios == null) {
-			dnUsuarios = new DNUsuarios();
+		StatusUsuario status = dNStatusUsuario.consultarDetalleStatusById(2);
+		vUsuario.setStatusUsuario2(status);
+
+		vUsuario = dnUsuarios.bloquearUsuarioStatus(vUsuario);
+
+		if (vUsuario.getIdUsuario() != 0) {
+			TiposBloqueo tipoBloqueo = dNTipoBloqueo.consultarDetalleTipoBloqueoById(1);
+			UsuariosBloqueado usuarioBloqueado = new UsuariosBloqueado();
+			Date fecha = new Date();
+			usuarioBloqueado.setUsuario(vUsuario);
+			usuarioBloqueado.setTiposBloqueo(tipoBloqueo);
+			usuarioBloqueado.setUsbFechaRegistro(fecha);
+			usuarioBloqueado.setUsbTipoTiempo(0);
+			usuarioBloqueado.setUsbTiempo(0);
+
+			if (dNUsuariosBloqueados.registrarUsuarioBloqueado(usuarioBloqueado).getIdUsuarioBloq() != 0) {
+				System.out.println("Registro en la tabla usuarios bloqueados");
+			}
+
+			isBloqueado = true;
 		}
 
-		if (dnLogSesiones == null) {
-			dnLogSesiones = new DNLogSesiones();
-		}
+	}
 
-		if (dnConfigApp == null) {
-			dnConfigApp = new DNConfiguracionApp();
-		}
+	public void recuperarPass() throws Exception {
 
+		inicializarDelegados();
+		vUsuario.setUsuMail(vUsuario.getUsuMail());
+		if (dnUsuarios.recuperarPassword(vUsuario) != 0) {
+			mensajes.mostrarMensaje("Se envío su contraseña al correo", 1);
+			vUsuario = null;
+			vUsuario = new Usuario();
+		} else {
+			mensajes.mostrarMensaje("El correo electrónico no coincide", 1);
+			vUsuario = null;
+			vUsuario = new Usuario();
+		}
 	}
 
 	private void logSesionUsuario(Usuario user, String status) throws Exception {
@@ -113,6 +158,34 @@ public class MBLogin implements Serializable {
 			// TODO: Add catch code
 			e.printStackTrace();
 			System.out.println("***ERROR INVALIDANDO LA SESSION ACTIVA");
+		}
+
+	}
+
+	private void inicializarDelegados() throws Exception {
+
+		if (dnUsuarios == null) {
+			dnUsuarios = new DNUsuarios();
+		}
+
+		if (dnLogSesiones == null) {
+			dnLogSesiones = new DNLogSesiones();
+		}
+
+		if (dnConfigApp == null) {
+			dnConfigApp = new DNConfiguracionApp();
+		}
+
+		if (dNStatusUsuario == null) {
+			dNStatusUsuario = new DNStatusUsuario();
+		}
+
+		if (dNTipoBloqueo == null) {
+			dNTipoBloqueo = new DNTipoBloqueo();
+		}
+
+		if (dNUsuariosBloqueados == null) {
+			dNUsuariosBloqueados = new DNUsuariosBloqueados();
 		}
 
 	}

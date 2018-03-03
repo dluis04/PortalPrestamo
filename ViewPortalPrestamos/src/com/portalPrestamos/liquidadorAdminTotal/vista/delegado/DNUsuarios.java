@@ -1,6 +1,7 @@
 package com.portalPrestamos.liquidadorAdminTotal.vista.delegado;
 
 import javax.annotation.ManagedBean;
+
 import javax.enterprise.context.ApplicationScoped;
 import com.portalPrestamos.estandar.modelo.utilidades.Parametros;
 import com.portalPrestamos.estandar.vista.utilidades.ServiceLocator;
@@ -23,5 +24,12 @@ public class DNUsuarios {
 		return sBUsuarioLocal.consultarUsuarioInicio(user);
 	}
 
+	public int recuperarPassword(Usuario usuario) throws Exception {
+		return sBUsuarioLocal.recuperarPassword(usuario);
+	}
+
+	public Usuario bloquearUsuarioStatus(Usuario usuario) throws Exception {
+		return sBUsuarioLocal.bloquearUsuarioStatus(usuario);
+	}
 
 }

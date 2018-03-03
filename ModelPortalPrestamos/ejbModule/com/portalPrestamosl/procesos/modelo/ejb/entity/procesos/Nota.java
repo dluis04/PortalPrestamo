@@ -21,7 +21,7 @@ public class Nota implements Serializable {
 
 	@Lob
 	@Column(name="NTS_DESCRIPCION")
-	private byte[] ntsDescripcion;
+	private String ntsDescripcion;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="NTS_FECHA")
@@ -48,11 +48,11 @@ public class Nota implements Serializable {
 		this.idNota = idNota;
 	}
 
-	public byte[] getNtsDescripcion() {
+	public String getNtsDescripcion() {
 		return this.ntsDescripcion;
 	}
 
-	public void setNtsDescripcion(byte[] ntsDescripcion) {
+	public void setNtsDescripcion(String ntsDescripcion) {
 		this.ntsDescripcion = ntsDescripcion;
 	}
 

@@ -38,7 +38,6 @@ public class ServiceLocator {
     public <T> T obtenerServicio(String jndiName, 
                                  Class<T> clazz) throws Exception {
         Object bean = null;
-
         if (serviceCache.containsKey(jndiName)) {
             bean = serviceCache.get(jndiName);
             return (T)bean;

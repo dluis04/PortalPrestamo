@@ -61,6 +61,9 @@ public class Usuario implements Serializable {
 	@Column(name="USU_DF_TELVECINO")
 	private String usuDfTelvecino;
 
+	@Column(name="USU_MAIL")
+	private String usuMail;
+
 	@Column(name="USU_PASSWORD")
 	private String usuPassword;
 
@@ -104,12 +107,14 @@ public class Usuario implements Serializable {
 	private List<SesionesActiva> sesionesActivas;
 
 	//bi-directional many-to-one association to StatusUsuario
-	@OneToMany(mappedBy="usuario")
-	private List<StatusUsuario> statusUsuarios;
+	@ManyToOne
+	@JoinColumn(name="ID_STATUS_USU2")
+	private StatusUsuario statusUsuario2;
 
 	//bi-directional many-to-one association to TipoUsuario
-	@OneToMany(mappedBy="usuario")
-	private List<TipoUsuario> tipoUsuarios;
+	@ManyToOne
+	@JoinColumn(name="ID_TIPO_USU2")
+	private TipoUsuario tipoUsuario2;
 
 	//bi-directional many-to-one association to UsuariosBloqueado
 	@OneToMany(mappedBy="usuario")
@@ -236,6 +241,14 @@ public class Usuario implements Serializable {
 
 	public void setUsuDfTelvecino(String usuDfTelvecino) {
 		this.usuDfTelvecino = usuDfTelvecino;
+	}
+
+	public String getUsuMail() {
+		return this.usuMail;
+	}
+
+	public void setUsuMail(String usuMail) {
+		this.usuMail = usuMail;
 	}
 
 	public String getUsuPassword() {
@@ -418,48 +431,20 @@ public class Usuario implements Serializable {
 		return sesionesActiva;
 	}
 
-	public List<StatusUsuario> getStatusUsuarios() {
-		return this.statusUsuarios;
+	public StatusUsuario getStatusUsuario2() {
+		return this.statusUsuario2;
 	}
 
-	public void setStatusUsuarios(List<StatusUsuario> statusUsuarios) {
-		this.statusUsuarios = statusUsuarios;
+	public void setStatusUsuario2(StatusUsuario statusUsuario2) {
+		this.statusUsuario2 = statusUsuario2;
 	}
 
-	public StatusUsuario addStatusUsuario(StatusUsuario statusUsuario) {
-		getStatusUsuarios().add(statusUsuario);
-		statusUsuario.setUsuario(this);
-
-		return statusUsuario;
+	public TipoUsuario getTipoUsuario2() {
+		return this.tipoUsuario2;
 	}
 
-	public StatusUsuario removeStatusUsuario(StatusUsuario statusUsuario) {
-		getStatusUsuarios().remove(statusUsuario);
-		statusUsuario.setUsuario(null);
-
-		return statusUsuario;
-	}
-
-	public List<TipoUsuario> getTipoUsuarios() {
-		return this.tipoUsuarios;
-	}
-
-	public void setTipoUsuarios(List<TipoUsuario> tipoUsuarios) {
-		this.tipoUsuarios = tipoUsuarios;
-	}
-
-	public TipoUsuario addTipoUsuario(TipoUsuario tipoUsuario) {
-		getTipoUsuarios().add(tipoUsuario);
-		tipoUsuario.setUsuario(this);
-
-		return tipoUsuario;
-	}
-
-	public TipoUsuario removeTipoUsuario(TipoUsuario tipoUsuario) {
-		getTipoUsuarios().remove(tipoUsuario);
-		tipoUsuario.setUsuario(null);
-
-		return tipoUsuario;
+	public void setTipoUsuario2(TipoUsuario tipoUsuario2) {
+		this.tipoUsuario2 = tipoUsuario2;
 	}
 
 	public List<UsuariosBloqueado> getUsuariosBloqueados() {

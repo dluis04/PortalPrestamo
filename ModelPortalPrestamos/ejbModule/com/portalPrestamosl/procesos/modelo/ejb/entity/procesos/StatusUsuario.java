@@ -2,6 +2,7 @@ package com.portalPrestamosl.procesos.modelo.ejb.entity.procesos;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -21,10 +22,6 @@ public class StatusUsuario implements Serializable {
 	@Column(name="STU_DESC_STATUS")
 	private String stuDescStatus;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="ID_USUARIO")
-	private Usuario usuario;
 
 	public StatusUsuario() {
 	}
@@ -45,12 +42,7 @@ public class StatusUsuario implements Serializable {
 		this.stuDescStatus = stuDescStatus;
 	}
 
-	public Usuario getUsuario() {
-		return this.usuario;
-	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+
 
 }

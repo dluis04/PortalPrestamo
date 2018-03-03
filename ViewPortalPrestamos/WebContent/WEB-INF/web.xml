@@ -80,15 +80,7 @@
         <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
         <param-value>true</param-value>
     </context-param>
-    <filter>
-        <filter-name>BMConsolaFilter</filter-name>
-        <filter-class>co.bmsoft.consola.clientapp.control.BMConsolaFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>BMConsolaFilter</filter-name>
-        <url-pattern>*.xhtml</url-pattern>
-        <url-pattern>*.jsf</url-pattern>
-    </filter-mapping>
+   
     <session-config>
         <session-timeout>-1</session-timeout>
     </session-config>

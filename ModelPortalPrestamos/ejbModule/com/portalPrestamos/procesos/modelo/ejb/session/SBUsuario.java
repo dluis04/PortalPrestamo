@@ -1,11 +1,15 @@
 package com.portalPrestamos.procesos.modelo.ejb.session;
 
+import java.util.ArrayList;
+
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import com.portalPrestamos.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
+import com.portalPrestamos.estandar.modelo.utilidades.Email;
+import com.portalPrestamos.estandar.modelo.utilidades.EmailUtil;
+import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.StatusUsuario;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
-
 
 /**
  * Session Bean implementation class SBUsuario
@@ -86,8 +90,8 @@ public class SBUsuario implements SBUsuarioLocal {
 	}
 
 	@Override
-	public Usuario consultarDetalleUsuarioByUsuario(String usuario) throws Exception {
-		String query = "SELECT u FROM Usuario u where u.usuario='" + usuario + "' ";
+	public Usuario consultarDetalleByUsuario(Usuario usuario) throws Exception {
+		String query = "SELECT u FROM Usuario u where u.usuUsuario='" + usuario.getUsuUsuario() + "' ";
 
 		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
 		Usuario temp = new Usuario();
@@ -96,6 +100,42 @@ public class SBUsuario implements SBUsuarioLocal {
 			temp = listUsuario.get(i);
 		}
 		return temp;
+	}
+
+	@Override
+	public int recuperarPassword(Usuario usario) throws Exception {
+		String query = "SELECT u FROM Usuario u where u.usuMail='" + usario.getUsuMail() + "' ";
+		Usuario temp = null;
+		int valorEnvio = 0;
+		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
+
+		for (int i = 0; i < listUsuario.size(); i++) {
+			temp = listUsuario.get(i);
+		}
+
+		if (temp != null) {
+			List<String> correo = new ArrayList<String>();
+			correo.add(temp.getUsuMail());
+
+			Email x = new Email();
+
+			valorEnvio = x.sendMailSimple(correo, "Recuperar Contraseña",
+					"Cordial Saludo, " + temp.getUsuPrimernomb() + " " + temp.getUsuSegundonomb()
+							+ " \n La contraseña de su cuenta es: " + temp.getUsuPassword()
+							+ " \n Atentamente la administración");
+		}
+
+		return valorEnvio;
+	}
+
+	@Override
+	public Usuario bloquearUsuarioStatus(Usuario usuario) throws Exception {
+
+		Usuario temp = consultarDetalleByUsuario(usuario);
+		temp.setStatusUsuario2(usuario.getStatusUsuario2());
+
+		Usuario x = (Usuario) sbFacade.updateEntity(temp);
+		return x;
 	}
 
 }
