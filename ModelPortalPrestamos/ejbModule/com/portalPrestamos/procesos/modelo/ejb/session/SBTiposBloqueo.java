@@ -40,4 +40,5 @@ public class SBTiposBloqueo implements SBTiposBloqueoLocal {
 		return temp;
 	}
 
+
 }

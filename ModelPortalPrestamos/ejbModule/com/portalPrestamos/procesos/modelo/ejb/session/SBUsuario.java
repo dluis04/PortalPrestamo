@@ -1,14 +1,13 @@
 package com.portalPrestamos.procesos.modelo.ejb.session;
 
 import java.util.ArrayList;
-
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
 import com.portalPrestamos.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
 import com.portalPrestamos.estandar.modelo.utilidades.Email;
-import com.portalPrestamos.estandar.modelo.utilidades.EmailUtil;
-import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.StatusUsuario;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 
 /**
@@ -53,7 +52,7 @@ public class SBUsuario implements SBUsuarioLocal {
 	@Override
 	public int consultarUsuarioRepetido(Usuario user) throws Exception {
 
-		String query = "SELECT COUNT(idUsuario) FROM Usuario WHERE usuUsuario ='" + user.getUsuUsuario() + "' ";
+		String query = "SELECT COUNT(u.idUsuario) FROM Usuario u WHERE u.usuUsuario ='" + user.getUsuUsuario() + "' ";
 
 		List registrosList = sbFacade.executeNativeQuery(query, null);
 		String vo = "0";
@@ -135,6 +134,12 @@ public class SBUsuario implements SBUsuarioLocal {
 		temp.setStatusUsuario2(usuario.getStatusUsuario2());
 
 		Usuario x = (Usuario) sbFacade.updateEntity(temp);
+		return x;
+	}
+
+	@Override
+	public Usuario eliminarUsuario(Usuario usuario) throws Exception {
+		Usuario x = (Usuario) sbFacade.updateEntity(usuario);
 		return x;
 	}
 

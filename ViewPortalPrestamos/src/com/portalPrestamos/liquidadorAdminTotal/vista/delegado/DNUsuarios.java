@@ -1,8 +1,8 @@
 package com.portalPrestamos.liquidadorAdminTotal.vista.delegado;
 
 import javax.annotation.ManagedBean;
-
 import javax.enterprise.context.ApplicationScoped;
+
 import com.portalPrestamos.estandar.modelo.utilidades.Parametros;
 import com.portalPrestamos.estandar.vista.utilidades.ServiceLocator;
 import com.portalPrestamos.procesos.modelo.ejb.session.SBUsuarioLocal;
@@ -19,6 +19,11 @@ public class DNUsuarios {
 				Parametros.PREFIJO_JNDI + "SBUsuario" + Parametros.PREFIJO_ADICIONAL_JNDI + "SBUsuarioLocal",
 				SBUsuarioLocal.class);
 	}
+	
+	
+	public Usuario crearUsuario(Usuario usuario) throws Exception {
+		return sBUsuarioLocal.crearUsuario(usuario);
+	}
 
 	public int consultarUsuarioInicio(Usuario user) throws Exception {
 		return sBUsuarioLocal.consultarUsuarioInicio(user);
@@ -30,6 +35,10 @@ public class DNUsuarios {
 
 	public Usuario bloquearUsuarioStatus(Usuario usuario) throws Exception {
 		return sBUsuarioLocal.bloquearUsuarioStatus(usuario);
+	}
+
+	public Usuario eliminarUsuario(Usuario usuario) throws Exception {
+		return sBUsuarioLocal.eliminarUsuario(usuario);
 	}
 
 }

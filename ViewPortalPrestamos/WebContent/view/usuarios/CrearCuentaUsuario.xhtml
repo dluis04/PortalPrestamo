@@ -13,7 +13,170 @@
 </h:head>
 <h:body>
 	<h:form id="form1">
-	
+
+
+		<div class="container" style="text-align: center;">
+			<div class="brand" style="text-align: center;">
+				<h1 class="brand_name">
+					<a href="./">Portal Prestamos</a>
+				</h1>
+				<p class="brand_slogan">Registro Usuarios</p>
+			</div>
+		</div>
+
+
+		<p:growl id="messages" />
+
+
+		<div align="left">
+
+			<p:panel id="datos">
+
+
+
+				<div class="ui-g">
+					<div class="ui-g-12 ui-md-6 ui-lg-3">
+						<h:outputText style="    font-weight: bold; "
+							value="Primer Nombre: " />
+					</div>
+
+					<div class="ui-g-12 ui-md-6 ui-lg-3">
+						<p:inputText style="width: 200px;" id="d1" maxlength="100"
+							required="true" requiredMessage="Debe Ingresar Primer Nombre"
+							value="#{MBUsuarios.vUsuario.usuPrimernomb}">
+						</p:inputText>
+					</div>
+
+					<div class="ui-g-12 ui-md-6 ui-lg-3">
+						<h:outputText style="    font-weight: bold; "
+							value="Segundo Nombre: " />
+					</div>
+
+					<div class="ui-g-12 ui-md-6 ui-lg-3">
+						<p:inputText style="width: 200px;" id="d2" maxlength="100"
+							value="#{MBUsuarios.vUsuario.usuSegundonomb}">
+						</p:inputText>
+					</div>
+
+					<div class="ui-g">
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Primer Apellido: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d3" maxlength="100"
+								required="true" requiredMessage="Debe Ingresar Primer Apellido"
+								value="#{MBUsuarios.vUsuario.usuPrimerape}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Segundo Apellido: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d4" maxlength="100"
+								value="#{MBUsuarios.vUsuario.usuSegundoape}">
+							</p:inputText>
+						</div>
+
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Numero Identificacion: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d5" maxlength="100"
+								required="true"
+								requiredMessage="Debe Ingresar Numero Identificacion"
+								value="#{MBUsuarios.vUsuario.usuCedula}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Correo Eletrónico: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d6" maxlength="100"
+								label="Correo Eletrónico" validatorMessage="Correo No valido"
+								required="true"
+								requiredMessage="Debe Ingresar el Correo Eletrónico"
+								value="#{MBUsuarios.vUsuario.usuMail}">
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " for="tipoUsuario"
+								value="Tipo Usuario:" />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:selectOneMenu id="tipoUsuario"
+								value="#{MBUsuarios.tipoUsuario}" lazy="true"
+								style="width:200px">
+								<f:selectItem itemLabel="Seleccione un tipo" itemValue="" />
+								<f:selectItems value="#{MBUsuarios.listTiposUsuario}" />
+							</p:selectOneMenu>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Usuario : " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+
+							<p:inputText style="width: 200px;" id="d7" maxlength="100"
+								required="true" requiredMessage="Debe Ingresar El Usuario"
+								value="#{MBUsuarios.vUsuario.usuUsuario}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Contraseña : " />
+						</div>
+
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:password style="width: 200px;" id="d8" maxlength="100"
+								required="true" requiredMessage="Debe Ingresar La Contraseña"
+								value="#{MBUsuarios.vUsuario.usuPassword}">
+							</p:password>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Confirmar Contraseña : " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:password style="width: 200px;" id="d9" maxlength="100"
+								required="true"
+								requiredMessage="Debe Ingresar la Confirmación de la Contraseña"
+								value="#{MBUsuarios.confirmacionPassword}">
+							</p:password>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-4">
+							<p:commandButton value="Guardar" style="width: 220px;"
+								update="messages,datos" actionListener="#{MBUsuarios.guardarUsuario}"
+								styleClass="btn btn-green" id="guardar">
+							</p:commandButton>
+						</div>
+
+
+					</div>
+				</div>
+			</p:panel>
+		</div>
+
 	</h:form>
 </h:body>
 </html>

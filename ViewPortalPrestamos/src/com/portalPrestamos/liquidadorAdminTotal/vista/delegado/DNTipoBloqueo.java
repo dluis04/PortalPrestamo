@@ -1,10 +1,11 @@
 
 package com.portalPrestamos.liquidadorAdminTotal.vista.delegado;
 
+import java.util.List;
+
 import javax.annotation.ManagedBean;
-
-
 import javax.enterprise.context.ApplicationScoped;
+
 import com.portalPrestamos.estandar.modelo.utilidades.Parametros;
 import com.portalPrestamos.estandar.vista.utilidades.ServiceLocator;
 import com.portalPrestamos.procesos.modelo.ejb.session.SBTiposBloqueo;
@@ -18,12 +19,14 @@ public class DNTipoBloqueo {
 	SBTiposBloqueoLocal sBTiposBloqueo;
 
 	public DNTipoBloqueo() throws Exception {
-		sBTiposBloqueo = ServiceLocator.getInstance().obtenerServicio(Parametros.PREFIJO_JNDI + "SBTiposBloqueo"
-				+ Parametros.PREFIJO_ADICIONAL_JNDI + "SBTiposBloqueoLocal", SBTiposBloqueo.class);
+		sBTiposBloqueo = ServiceLocator.getInstance().obtenerServicio(
+				Parametros.PREFIJO_JNDI + "SBTiposBloqueo" + Parametros.PREFIJO_ADICIONAL_JNDI + "SBTiposBloqueoLocal",
+				SBTiposBloqueo.class);
 	}
 
-	public TiposBloqueo consultarDetalleTipoBloqueoById(int idBloqueo) throws Exception{
+	public TiposBloqueo consultarDetalleTipoBloqueoById(int idBloqueo) throws Exception {
 		return sBTiposBloqueo.consultarDetalleTipoBloqueoById(idBloqueo);
 	}
+
 
 }
