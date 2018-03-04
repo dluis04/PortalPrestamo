@@ -59,18 +59,22 @@ public class MBUsuarios implements Serializable {
 
 		inicializarDelegados();
 
-		StatusUsuario status = dNStatusUsuario.consultarDetalleStatusById(1);
-		TipoUsuario tipoUsu = dNTipoUsuario.consultarDetalleTipoUsuarioById(tipoUsuario);
+		if (vUsuario.getUsuPassword().equals(confirmacionPassword)) {
+			StatusUsuario status = dNStatusUsuario.consultarDetalleStatusById(1);
+			TipoUsuario tipoUsu = dNTipoUsuario.consultarDetalleTipoUsuarioById(tipoUsuario);
 
-		vUsuario.setStatusUsuario2(status);
-		vUsuario.setTipoUsuario2(tipoUsu);
+			vUsuario.setStatusUsuario2(status);
+			vUsuario.setTipoUsuario2(tipoUsu);
 
-		if (dnUsuarios.crearUsuario(vUsuario) != null) {
-			vUsuario = null;
-			vUsuario = new Usuario();
-			mensajes.mostrarMensaje("Registro Exitoso", 1);
-			tipoUsuario = 0;
-			consultarTodo();
+			if (dnUsuarios.crearUsuario(vUsuario) != null) {
+				vUsuario = null;
+				vUsuario = new Usuario();
+				mensajes.mostrarMensaje("Registro Exitoso", 1);
+				tipoUsuario = 0;
+				consultarTodo();
+			}
+		} else {
+			mensajes.mostrarMensaje("Las contraseñas no coinciden", 3);
 		}
 
 	}
