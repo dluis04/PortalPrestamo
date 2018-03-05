@@ -19,8 +19,7 @@ public class DNUsuarios {
 				Parametros.PREFIJO_JNDI + "SBUsuario" + Parametros.PREFIJO_ADICIONAL_JNDI + "SBUsuarioLocal",
 				SBUsuarioLocal.class);
 	}
-	
-	
+
 	public Usuario crearUsuario(Usuario usuario) throws Exception {
 		return sBUsuarioLocal.crearUsuario(usuario);
 	}
@@ -39,6 +38,10 @@ public class DNUsuarios {
 
 	public Usuario eliminarUsuario(Usuario usuario) throws Exception {
 		return sBUsuarioLocal.eliminarUsuario(usuario);
+	}
+
+	public Usuario modificarPassword(Usuario usuario) throws Exception {
+		return sBUsuarioLocal.modificarPassword(usuario);
 	}
 
 }

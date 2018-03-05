@@ -28,5 +28,8 @@ public class DNTipoBloqueo {
 		return sBTiposBloqueo.consultarDetalleTipoBloqueoById(idBloqueo);
 	}
 
+	public List<TiposBloqueo> consultarAllTiposBloqueos() throws Exception {
+		return sBTiposBloqueo.consultarAllTiposBloqueos();
+	}
 
 }

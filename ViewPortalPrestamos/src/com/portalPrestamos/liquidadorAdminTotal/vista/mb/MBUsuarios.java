@@ -7,6 +7,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+
 import com.portalPrestamos.estandar.vista.mb.MBMensajes;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNStatusUsuario;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNTipoUsuario;
@@ -75,6 +76,26 @@ public class MBUsuarios implements Serializable {
 			}
 		} else {
 			mensajes.mostrarMensaje("Las contraseñas no coinciden", 3);
+		}
+
+	}
+
+	public void modificarUsuario() throws Exception {
+
+		inicializarDelegados();
+
+		StatusUsuario status = dNStatusUsuario.consultarDetalleStatusById(1);
+		TipoUsuario tipoUsu = dNTipoUsuario.consultarDetalleTipoUsuarioById(tipoUsuario);
+
+		vUsuario.setStatusUsuario2(status);
+		vUsuario.setTipoUsuario2(tipoUsu);
+
+		if (dnUsuarios.crearUsuario(vUsuario) != null) {
+			vUsuario = null;
+			vUsuario = new Usuario();
+			mensajes.mostrarMensaje("Registro Exitoso", 1);
+			tipoUsuario = 0;
+			consultarTodo();
 		}
 
 	}

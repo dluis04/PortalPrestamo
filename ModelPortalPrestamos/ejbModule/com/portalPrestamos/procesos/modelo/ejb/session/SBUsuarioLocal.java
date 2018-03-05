@@ -16,6 +16,7 @@ public interface SBUsuarioLocal {
 	public Usuario consultarDetalleByUsuario(Usuario usuario) throws Exception;
 	public int recuperarPassword(Usuario usario) throws Exception;
 	public Usuario bloquearUsuarioStatus(Usuario usuario) throws Exception;
+	public Usuario modificarPassword(Usuario usuario) throws Exception;
 	
 	
 }

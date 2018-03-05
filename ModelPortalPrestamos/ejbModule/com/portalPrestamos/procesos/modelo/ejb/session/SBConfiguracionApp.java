@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
 import com.portalPrestamos.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
 import com.portalPrestamos.estandar.modelo.excepciones.BaseException;
+import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.ConfiguracionApp;
 
 /**
  * Session Bean implementation class SBConfiguracionApp
@@ -36,6 +38,19 @@ public class SBConfiguracionApp implements SBConfiguracionAppLocal {
 		}
 
 		return retornValor;
+	}
+
+	@Override
+	public List<ConfiguracionApp> consultarAllConfiguracionApp() throws BaseException {
+		String query = "SELECT c FROM ConfiguracionApp c";
+		List<ConfiguracionApp> listConfiguracion = sbFacade.executeQuery(query, null);
+		return listConfiguracion;
+	}
+
+	@Override
+	public ConfiguracionApp modificarParametrizacion(ConfiguracionApp configuracion) throws BaseException {
+		ConfiguracionApp x = (ConfiguracionApp) sbFacade.updateEntity(configuracion);
+		return x;
 	}
 
 }

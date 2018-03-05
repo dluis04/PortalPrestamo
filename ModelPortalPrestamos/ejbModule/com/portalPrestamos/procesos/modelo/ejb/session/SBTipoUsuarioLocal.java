@@ -11,5 +11,7 @@ public interface SBTipoUsuarioLocal {
 	
 	public List<TipoUsuario> consultarTodo() throws Exception;
 	public TipoUsuario consultarDetalleTipoUsuarioById(int idTipo) throws Exception;
-
+	public TipoUsuario crearTipoUsuario(TipoUsuario tipoUsuario) throws Exception;
+	public TipoUsuario modificarTipoUsuario(TipoUsuario tipoUsuario) throws Exception;
+	
 }

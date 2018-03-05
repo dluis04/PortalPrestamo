@@ -11,5 +11,6 @@ import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.TiposBloqueo;
 public interface SBTiposBloqueoLocal {
 	
 	public TiposBloqueo consultarDetalleTipoBloqueoById(int idBloqueo) throws Exception;
+	public List<TiposBloqueo> consultarAllTiposBloqueos() throws Exception;
 
 }

@@ -3,9 +3,9 @@ package com.portalPrestamos.procesos.modelo.ejb.session;
 import java.util.List;
 
 import javax.ejb.EJB;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+
 import com.portalPrestamos.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.StatusUsuario;
 
@@ -29,7 +29,7 @@ public class SBStatusUsuario implements SBStatusUsuarioLocal {
 	@Override
 	public StatusUsuario consultarDetalleStatusById(int idStatus) throws Exception {
 		String query = "SELECT u FROM StatusUsuario u where u.idStatusUsu='" + idStatus + "' ";
-		
+
 		List<StatusUsuario> listStatus = sbFacade.executeQuery(query, null);
 		StatusUsuario temp = new StatusUsuario();
 
@@ -37,6 +37,14 @@ public class SBStatusUsuario implements SBStatusUsuarioLocal {
 			temp = listStatus.get(i);
 		}
 		return temp;
+	}
+
+	@Override
+	public List<StatusUsuario> consultarAllStatusUsuario() throws Exception {
+		String query = "SELECT u FROM StatusUsuario u";
+
+		List<StatusUsuario> listStatus = sbFacade.executeQuery(query, null);
+		return listStatus;
 	}
 
 }

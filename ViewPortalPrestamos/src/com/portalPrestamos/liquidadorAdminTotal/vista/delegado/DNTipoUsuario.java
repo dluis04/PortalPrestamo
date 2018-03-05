@@ -9,10 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 import com.portalPrestamos.estandar.modelo.utilidades.Parametros;
 import com.portalPrestamos.estandar.vista.utilidades.ServiceLocator;
 import com.portalPrestamos.procesos.modelo.ejb.session.SBTipoUsuarioLocal;
-import com.portalPrestamos.procesos.modelo.ejb.session.SBTiposBloqueo;
-import com.portalPrestamos.procesos.modelo.ejb.session.SBTiposBloqueoLocal;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.TipoUsuario;
-import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.TiposBloqueo;
 
 @ManagedBean(value = "DNTipoUsuario")
 @ApplicationScoped
@@ -32,6 +29,14 @@ public class DNTipoUsuario {
 
 	public TipoUsuario consultarDetalleTipoUsuarioById(int idTipo) throws Exception {
 		return sBTipoUsuarioLocal.consultarDetalleTipoUsuarioById(idTipo);
+	}
+
+	public TipoUsuario crearTipoUsuario(TipoUsuario tipoUsuario) throws Exception {
+		return sBTipoUsuarioLocal.crearTipoUsuario(tipoUsuario);
+	}
+
+	public TipoUsuario modificarTipoUsuario(TipoUsuario tipoUsuario) throws Exception {
+		return sBTipoUsuarioLocal.modificarTipoUsuario(tipoUsuario);
 	}
 
 }

@@ -47,4 +47,16 @@ public class SBTipoUsuario implements SBTipoUsuarioLocal {
 		return temp;
 	}
 
+	@Override
+	public TipoUsuario crearTipoUsuario(TipoUsuario tipoUsuario) throws Exception {
+		TipoUsuario entity = (TipoUsuario) sbFacade.insertEntity(tipoUsuario);
+		return entity;
+	}
+
+	@Override
+	public TipoUsuario modificarTipoUsuario(TipoUsuario TipoUsuario) throws Exception {
+		TipoUsuario x = (TipoUsuario) sbFacade.updateEntity(TipoUsuario);
+		return x;
+	}
+
 }

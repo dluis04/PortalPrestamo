@@ -143,4 +143,10 @@ public class SBUsuario implements SBUsuarioLocal {
 		return x;
 	}
 
+	@Override
+	public Usuario modificarPassword(Usuario usuario) throws Exception {
+		Usuario x = (Usuario) sbFacade.updateEntity(usuario);
+		return x;
+	}
+
 }

@@ -3,7 +3,6 @@ package com.portalPrestamos.procesos.modelo.ejb.session;
 import java.util.List;
 
 import javax.ejb.EJB;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
@@ -40,5 +39,11 @@ public class SBTiposBloqueo implements SBTiposBloqueoLocal {
 		return temp;
 	}
 
+	@Override
+	public List<TiposBloqueo> consultarAllTiposBloqueos() throws Exception {
+		String query = "SELECT u FROM TiposBloqueo u";
+		List<TiposBloqueo> listTiposBloqueo = sbFacade.executeQuery(query, null);
+		return listTiposBloqueo;
+	}
 
 }
