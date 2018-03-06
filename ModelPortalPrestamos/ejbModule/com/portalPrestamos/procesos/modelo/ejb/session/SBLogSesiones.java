@@ -2,8 +2,10 @@ package com.portalPrestamos.procesos.modelo.ejb.session;
 
 import java.util.HashMap;
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
 import com.portalPrestamos.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
 import com.portalPrestamos.estandar.modelo.excepciones.BaseException;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.LogSesione;
