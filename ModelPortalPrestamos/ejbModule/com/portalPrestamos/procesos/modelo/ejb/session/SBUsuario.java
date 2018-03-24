@@ -54,7 +54,7 @@ public class SBUsuario implements SBUsuarioLocal {
 
 		String query = "SELECT COUNT(u.idUsuario) FROM Usuario u WHERE u.usuUsuario ='" + user.getUsuUsuario() + "' ";
 
-		List registrosList = sbFacade.executeNativeQuery(query, null);
+		List registrosList = sbFacade.executeQuery(query, null);
 		String vo = "0";
 		int cont = 0;
 		for (int i = 0; i < registrosList.size(); i++) {
@@ -80,7 +80,7 @@ public class SBUsuario implements SBUsuarioLocal {
 		String query = "SELECT u FROM Usuario u where u.idUsuario='" + id + "' ";
 
 		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
-		Usuario temp = new Usuario();
+		Usuario temp = null;
 
 		for (int i = 0; i < listUsuario.size(); i++) {
 			temp = listUsuario.get(i);
@@ -93,7 +93,7 @@ public class SBUsuario implements SBUsuarioLocal {
 		String query = "SELECT u FROM Usuario u where u.usuUsuario='" + usuario.getUsuUsuario() + "' ";
 
 		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
-		Usuario temp = new Usuario();
+		Usuario temp = null;
 
 		for (int i = 0; i < listUsuario.size(); i++) {
 			temp = listUsuario.get(i);

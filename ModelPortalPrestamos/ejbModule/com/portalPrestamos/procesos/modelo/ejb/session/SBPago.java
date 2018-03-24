@@ -10,6 +10,7 @@ import com.portalPrestamos.estandar.modelo.ejb.session.SBFacadeProcesosLocal;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.DetalleCuota;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Pago;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Prestamo;
+import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 
 /**
  * Session Bean implementation class SBPago
@@ -45,6 +46,22 @@ public class SBPago implements SBPagoLocal {
 	public Pago modificarPago(Pago pago) throws Exception {
 		Pago entity = (Pago) sbFacade.updateEntity(pago);
 		return entity;
+	}
+
+	@Override
+	public List<Pago> consultarPagosByDeudorPago(Usuario deudor) throws Exception {
+		String query = "SELECT u FROM Pago u where u.detalleCuota.prestamo.usuario1.idUsuario='" + deudor.getIdUsuario()
+				+ "' and u.pgsEstado='PAGO' order by pgsSecPago asc ";
+		List<Pago> listPago = sbFacade.executeQuery(query, null);
+		return listPago;
+	}
+
+	@Override
+	public List<Pago> consultarAbonosByDeudorPago(Usuario deudor) throws Exception {
+		String query = "SELECT u FROM Pago u where u.detalleCuota.prestamo.usuario1.idUsuario='" + deudor.getIdUsuario()
+				+ "' and u.pgsEstado='ABONO' order by pgsSecPago asc ";
+		List<Pago> listPago = sbFacade.executeQuery(query, null);
+		return listPago;
 	}
 
 }

@@ -80,6 +80,13 @@ public class MBUsuarios implements Serializable {
 
 	}
 
+	public void consultarUsuarioByUsuario(Usuario usuario) throws Exception {
+
+		inicializarDelegados();
+		vUsuario = dnUsuarios.consultarUsuarioByUsuario(usuario);
+
+	}
+
 	public void modificarUsuario() throws Exception {
 
 		inicializarDelegados();

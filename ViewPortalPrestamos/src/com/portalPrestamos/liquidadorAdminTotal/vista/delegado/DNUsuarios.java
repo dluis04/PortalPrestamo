@@ -28,6 +28,14 @@ public class DNUsuarios {
 		return sBUsuarioLocal.consultarUsuarioInicio(user);
 	}
 
+	public int consultarUsuarioExistente(Usuario user) throws Exception {
+		return sBUsuarioLocal.consultarUsuarioRepetido(user);
+	}
+
+	public Usuario consultarUsuarioByUsuario(Usuario user) throws Exception {
+		return sBUsuarioLocal.consultarDetalleByUsuario(user);
+	}
+
 	public int recuperarPassword(Usuario usuario) throws Exception {
 		return sBUsuarioLocal.recuperarPassword(usuario);
 	}

@@ -23,16 +23,12 @@
 				<p class="brand_slogan">Registro Usuarios</p>
 			</div>
 		</div>
-
-
+		
 		<p:growl id="messages" />
-
 
 		<div align="left">
 
 			<p:panel id="datos">
-
-
 
 				<div class="ui-g">
 					<div class="ui-g-12 ui-md-6 ui-lg-3">
@@ -82,7 +78,6 @@
 							</p:inputText>
 						</div>
 
-
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 							<h:outputText style="    font-weight: bold; "
 								value="Numero Identificacion: " />
@@ -131,7 +126,6 @@
 						</div>
 
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
-
 							<p:inputText style="width: 200px;" id="d7" maxlength="100"
 								required="true" requiredMessage="Debe Ingresar El Usuario"
 								value="#{MBUsuarios.vUsuario.usuUsuario}">
@@ -166,11 +160,11 @@
 
 						<div class="ui-g-12 ui-md-6 ui-lg-4">
 							<p:commandButton value="Guardar" style="width: 220px;"
-								update="messages,datos" actionListener="#{MBUsuarios.guardarUsuario}"
+								update="messages,datos"
+								actionListener="#{MBUsuarios.guardarUsuario}"
 								styleClass="btn btn-green" id="guardar">
 							</p:commandButton>
 						</div>
-
 
 					</div>
 				</div>

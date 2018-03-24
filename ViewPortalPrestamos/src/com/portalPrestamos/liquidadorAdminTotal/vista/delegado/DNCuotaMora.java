@@ -11,6 +11,7 @@ import com.portalPrestamos.estandar.vista.utilidades.ServiceLocator;
 import com.portalPrestamos.procesos.modelo.ejb.session.SBCuotaMoraLocal;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.CuotaMora;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.DetalleCuota;
+import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 
 @ManagedBean(value = "DNCuotaMora")
 @ApplicationScoped
@@ -34,6 +35,14 @@ public class DNCuotaMora {
 
 	public CuotaMora modificarPagoCuotaMora(CuotaMora pago) throws Exception {
 		return sBCuotaMoraLocal.modificarPagoCuotaMora(pago);
+	}
+
+	public List<CuotaMora> consultarCuotaMorasByDeudorDebe(Usuario deudor) throws Exception {
+		return sBCuotaMoraLocal.consultarCuotaMorasByDeudorDebe(deudor);
+	}
+
+	public List<CuotaMora> consultarCuotaMorasByDeudorPago(Usuario deudor) throws Exception {
+		return sBCuotaMoraLocal.consultarCuotaMorasByDeudorPago(deudor);
 	}
 
 }

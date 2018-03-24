@@ -9,9 +9,11 @@ import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.ConfiguracionApp
 
 @Local
 public interface SBConfiguracionAppLocal {
-	
+
 	public int consultaConfiguracionIntentosInicioSesion(int idConfiguracion) throws BaseException;
+
 	public List<ConfiguracionApp> consultarAllConfiguracionApp() throws BaseException;
+
 	public ConfiguracionApp modificarParametrizacion(ConfiguracionApp configuracion) throws BaseException;
-	
+
 }
