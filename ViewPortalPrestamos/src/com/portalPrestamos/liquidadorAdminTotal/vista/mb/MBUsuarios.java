@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import com.portalPrestamos.estandar.vista.mb.MBMensajes;
@@ -85,6 +87,8 @@ public class MBUsuarios implements Serializable {
 		inicializarDelegados();
 		vUsuario = dnUsuarios.consultarUsuarioByUsuario(usuario);
 
+		tipoUsuario = vUsuario.getTipoUsuario2().getIdTipoUsu();
+
 	}
 
 	public void modificarUsuario() throws Exception {
@@ -97,14 +101,9 @@ public class MBUsuarios implements Serializable {
 		vUsuario.setStatusUsuario2(status);
 		vUsuario.setTipoUsuario2(tipoUsu);
 
-		if (dnUsuarios.crearUsuario(vUsuario) != null) {
-			vUsuario = null;
-			vUsuario = new Usuario();
-			mensajes.mostrarMensaje("Registro Exitoso", 1);
-			tipoUsuario = 0;
-			consultarTodo();
+		if (dnUsuarios.actualizarUsuario(vUsuario) != null) {
+			mensajes.mostrarMensaje("Modificacion Exitosa", 1);
 		}
-
 	}
 
 	private void inicializarDelegados() throws Exception {

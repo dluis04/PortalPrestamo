@@ -23,6 +23,10 @@ public class DNUsuarios {
 	public Usuario crearUsuario(Usuario usuario) throws Exception {
 		return sBUsuarioLocal.crearUsuario(usuario);
 	}
+	
+	public Usuario actualizarUsuario(Usuario usuario) throws Exception {
+		return sBUsuarioLocal.actualizarUsuario(usuario);
+	}
 
 	public int consultarUsuarioInicio(Usuario user) throws Exception {
 		return sBUsuarioLocal.consultarUsuarioInicio(user);

@@ -117,11 +117,12 @@ a {
 				</p:submenu>
 
 				<p:menuitem value="Modificar Usuario"
+					onstart="#{MBUsuarios.consultarUsuarioByUsuario(MBLogin.vUsuario)}"
 					url="/view/usuarios/modificarUsuario.xhtml" />
 
 				<f:facet name="options">
 					<p:outputLabel style="margin-right:15px;font-weight: bold;"
-						value="#{MBLogin.vUsuario.usuPrimernomb} #{MBLogin.vUsuario.usuPrimerape}" />
+						value="#{MBLogin.vUsuario.usuPrimernomb} " />
 
 					<p:commandButton value="Cerrar Sesión"
 						actionListener="#{MBLogin.cerrarSesion}" icon="ui-icon-extlink" />
