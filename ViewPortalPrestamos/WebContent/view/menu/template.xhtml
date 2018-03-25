@@ -113,7 +113,10 @@ a {
 				<p:submenu label="Gestion" icon="ui-icon-contact">
 
 					<p:menuitem value="Crear Usuario"
-						url="/view/usuarios/crearCuentaUsuario.xhtml" />
+						url="/view/usuarios/CrearCuentaUsuario.xhtml" />
+						
+					<p:menuitem value="Consultar Usuarios"
+						url="/view/usuarios/consultarUsuarios.xhtml" />
 				</p:submenu>
 
 				<p:menuitem value="Modificar Usuario"
@@ -122,7 +125,7 @@ a {
 
 				<f:facet name="options">
 					<p:outputLabel style="margin-right:15px;font-weight: bold;"
-						value="#{MBLogin.vUsuario.usuPrimernomb} " />
+						value="#{MBLogin.vUsuario.usuPrimernomb} #{MBLogin.vUsuario.usuPrimerape} " />
 
 					<p:commandButton value="Cerrar Sesión"
 						actionListener="#{MBLogin.cerrarSesion}" icon="ui-icon-extlink" />

@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+
+			<div class="container" style="text-align: center;">
+				<div class="brand" style="text-align: center;">
+					<h1 class="brand_name">
+						<a href="./">Portal Prestamos</a>
+					</h1>
+					<p class="brand_slogan">Consultar Usuarios</p>
+				</div>
+			</div>
+
+			<p:growl id="messages1" sticky="true" />
+
+			<div align="left">
+
+				<p:panel id="datos">
+
+					<p:dataTable id="tbl" var="datos" selectionMode="single"
+						selection="#{MBUsuarios.usuarioSeleccionado}"
+						rowKey="#{datos.idUsuario}" value="#{MBUsuarios.listUsuarios}">
+
+						<f:facet name="header">
+    					   Usuarios
+   				        </f:facet>
+
+						<p:column headerText="Nombres ">
+							<h:outputText
+								value="#{datos.usuPrimernomb} #{datos.usuSegundonomb}" />
+						</p:column>
+
+						<p:column headerText="Apellidos">
+							<h:outputText
+								value="#{datos.usuPrimerape} #{datos.usuSegundoape}" />
+						</p:column>
+
+						<p:column headerText="Correo">
+							<h:outputText value="#{datos.usuMail}" />
+						</p:column>
+
+					</p:dataTable>
+
+				</p:panel>
+			</div>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

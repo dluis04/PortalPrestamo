@@ -24,25 +24,32 @@ public class MBUsuarios implements Serializable {
 
 	MBMensajes mensajes = new MBMensajes();
 	private Usuario vUsuario;
+	private Usuario usuarioCrear;
+	private Usuario usuarioSeleccionado;
 	private String confirmacionPassword;
+	private int tipoUsuario1;
 	private int tipoUsuario;
 	DNUsuarios dnUsuarios;
 	DNTipoUsuario dNTipoUsuario;
 	DNStatusUsuario dNStatusUsuario;
 	List<TipoUsuario> listTipoUsuario;
 	List<SelectItem> listTiposUsuario;
+	List<Usuario> listUsuarios;
+	List<Usuario> filterUsuarios;
 
 	public MBUsuarios() {
 		vUsuario = new Usuario();
-
+		usuarioCrear = new Usuario();
 		consultarTodo();
 	}
 
 	public void consultarTodo() {
 		try {
 			inicializarDelegados();
+			
 			listTiposUsuario = new ArrayList<>();
 			listTipoUsuario = dNTipoUsuario.consultarTodosTipoUsuario();
+			
 			int cont = 1;
 			for (TipoUsuario list : listTipoUsuario) {
 
@@ -51,6 +58,8 @@ public class MBUsuarios implements Serializable {
 				}
 				cont++;
 			}
+			
+			listUsuarios=dnUsuarios.consultarUsuarios();
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -62,18 +71,18 @@ public class MBUsuarios implements Serializable {
 
 		inicializarDelegados();
 
-		if (vUsuario.getUsuPassword().equals(confirmacionPassword)) {
+		if (usuarioCrear.getUsuPassword().equals(confirmacionPassword)) {
 			StatusUsuario status = dNStatusUsuario.consultarDetalleStatusById(1);
 			TipoUsuario tipoUsu = dNTipoUsuario.consultarDetalleTipoUsuarioById(tipoUsuario);
 
-			vUsuario.setStatusUsuario2(status);
-			vUsuario.setTipoUsuario2(tipoUsu);
+			usuarioCrear.setStatusUsuario2(status);
+			usuarioCrear.setTipoUsuario2(tipoUsu);
 
-			if (dnUsuarios.crearUsuario(vUsuario) != null) {
-				vUsuario = null;
-				vUsuario = new Usuario();
+			if (dnUsuarios.crearUsuario(usuarioCrear) != null) {
+				usuarioCrear = null;
+				usuarioCrear = new Usuario();
 				mensajes.mostrarMensaje("Registro Exitoso", 1);
-				tipoUsuario = 0;
+				tipoUsuario1 = 0;
 				consultarTodo();
 			}
 		} else {
@@ -120,6 +129,47 @@ public class MBUsuarios implements Serializable {
 			dNStatusUsuario = new DNStatusUsuario();
 		}
 
+	}
+	
+	
+	public int getTipoUsuario1() {
+		return tipoUsuario1;
+	}
+
+	public void setTipoUsuario1(int tipoUsuario1) {
+		this.tipoUsuario1 = tipoUsuario1;
+	}
+
+	public Usuario getUsuarioCrear() {
+		return usuarioCrear;
+	}
+
+	public void setUsuarioCrear(Usuario usuarioCrear) {
+		this.usuarioCrear = usuarioCrear;
+	}
+
+	public List<Usuario> getListUsuarios() {
+		return listUsuarios;
+	}
+	
+	public List<Usuario> getFilterUsuarios() {
+		return filterUsuarios;
+	}
+
+	public void setFilterUsuarios(List<Usuario> filterUsuarios) {
+		this.filterUsuarios = filterUsuarios;
+	}
+
+	public void setListUsuarios(List<Usuario> listUsuarios) {
+		this.listUsuarios = listUsuarios;
+	}
+
+	public Usuario getUsuarioSeleccionado() {
+		return usuarioSeleccionado;
+	}
+
+	public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
+		this.usuarioSeleccionado = usuarioSeleccionado;
 	}
 
 	public int getTipoUsuario() {

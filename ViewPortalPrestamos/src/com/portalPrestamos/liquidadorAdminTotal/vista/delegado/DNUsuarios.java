@@ -1,5 +1,7 @@
 package com.portalPrestamos.liquidadorAdminTotal.vista.delegado;
 
+import java.util.List;
+
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.ApplicationScoped;
 
@@ -26,6 +28,10 @@ public class DNUsuarios {
 	
 	public Usuario actualizarUsuario(Usuario usuario) throws Exception {
 		return sBUsuarioLocal.actualizarUsuario(usuario);
+	}
+	
+	public List<Usuario> consultarUsuarios() throws Exception {
+		return sBUsuarioLocal.consultarUsuariosSistema();
 	}
 
 	public int consultarUsuarioInicio(Usuario user) throws Exception {

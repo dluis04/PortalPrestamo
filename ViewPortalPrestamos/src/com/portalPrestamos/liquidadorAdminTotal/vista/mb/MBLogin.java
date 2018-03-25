@@ -57,7 +57,6 @@ public class MBLogin implements Serializable {
 				if (dnUsuarios.consultarUsuarioInicio(vUsuario) == 1) {
 
 					logSesionUsuario(vUsuario, "CORRECTO");
-					vUsuario = dnUsuarios.consultarUsuarioByUsuario(vUsuario);
 
 					isBloqueado = false;
 

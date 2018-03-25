@@ -149,4 +149,11 @@ public class SBUsuario implements SBUsuarioLocal {
 		return x;
 	}
 
+	@Override
+	public List<Usuario> consultarUsuariosSistema() throws Exception {
+		String query = "SELECT u FROM Usuario u ";
+		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
+		return listUsuario;
+	}
+
 }
