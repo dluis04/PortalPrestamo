@@ -1565,15 +1565,16 @@ footer .copyright a:hover {
 
 
 							<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
-								id="dialogPass" closable="false" resizable="false" showHeader="false">
+								id="dialogPass" closable="false" resizable="false"
+								showHeader="false">
 								<p:inputText value="#{MBLogin.vUsuario.usuMail}" id="userMail"
 									required="false"
 									requiredMessage="Debe ingresar el correo electrónico"
-									label="Correo electrónico"  />
+									label="Correo electrónico" />
 
 								<p:commandButton value="Enviar" style="width: 220px;"
 									oncomplete="PF('statusDialog').hide();"
-									action="#{MBLogin.recuperarPass}" update="mensajes,dialogPass"/>
+									action="#{MBLogin.recuperarPass}" update="mensajes,dialogPass" />
 
 								<p:commandButton value="Cancelar" style="width: 220px;"
 									oncomplete="PF('statusDialog').hide();" />
@@ -1596,8 +1597,6 @@ footer .copyright a:hover {
 									action="#{MBLogin.iniciarSesion}" />
 
 							</h:panelGrid>
-
-
 
 
 						</div>

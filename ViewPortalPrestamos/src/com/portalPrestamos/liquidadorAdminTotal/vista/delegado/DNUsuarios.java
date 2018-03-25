@@ -8,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import com.portalPrestamos.estandar.modelo.utilidades.Parametros;
 import com.portalPrestamos.estandar.vista.utilidades.ServiceLocator;
 import com.portalPrestamos.procesos.modelo.ejb.session.SBUsuarioLocal;
+import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.StatusUsuario;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 
 @ManagedBean(value = "DNUsuarios")
@@ -25,11 +26,11 @@ public class DNUsuarios {
 	public Usuario crearUsuario(Usuario usuario) throws Exception {
 		return sBUsuarioLocal.crearUsuario(usuario);
 	}
-	
+
 	public Usuario actualizarUsuario(Usuario usuario) throws Exception {
 		return sBUsuarioLocal.actualizarUsuario(usuario);
 	}
-	
+
 	public List<Usuario> consultarUsuarios() throws Exception {
 		return sBUsuarioLocal.consultarUsuariosSistema();
 	}

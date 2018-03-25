@@ -40,7 +40,7 @@
 					<div class="ui-g-12 ui-md-6 ui-lg-3">
 						<p:inputText style="width: 200px;" id="d1" maxlength="100"
 							required="true" requiredMessage="Debe Ingresar Primer Nombre"
-							value="#{MBUsuarios.vUsuario.usuPrimernomb}">
+							value="#{MBUsuarios.usuarioModificar.usuPrimernomb}">
 						</p:inputText>
 					</div>
 
@@ -51,7 +51,7 @@
 
 					<div class="ui-g-12 ui-md-6 ui-lg-3">
 						<p:inputText style="width: 200px;" id="d2" maxlength="100"
-							value="#{MBUsuarios.vUsuario.usuSegundonomb}">
+							value="#{MBUsuarios.usuarioModificar.usuSegundonomb}">
 						</p:inputText>
 					</div>
 
@@ -64,7 +64,7 @@
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 							<p:inputText style="width: 200px;" id="d3" maxlength="100"
 								required="true" requiredMessage="Debe Ingresar Primer Apellido"
-								value="#{MBUsuarios.vUsuario.usuPrimerape}">
+								value="#{MBUsuarios.usuarioModificar.usuPrimerape}">
 							</p:inputText>
 						</div>
 
@@ -75,7 +75,7 @@
 
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 							<p:inputText style="width: 200px;" id="d4" maxlength="100"
-								value="#{MBUsuarios.vUsuario.usuSegundoape}">
+								value="#{MBUsuarios.usuarioModificar.usuSegundoape}">
 							</p:inputText>
 						</div>
 
@@ -89,7 +89,7 @@
 							<p:inputText style="width: 200px;" id="d5" maxlength="100"
 								required="true"
 								requiredMessage="Debe Ingresar Numero Identificacion"
-								value="#{MBUsuarios.vUsuario.usuCedula}">
+								value="#{MBUsuarios.usuarioModificar.usuCedula}">
 							</p:inputText>
 						</div>
 
@@ -103,7 +103,7 @@
 								label="Correo Eletrónico" validatorMessage="Correo No valido"
 								required="true"
 								requiredMessage="Debe Ingresar el Correo Eletrónico"
-								value="#{MBUsuarios.vUsuario.usuMail}">
+								value="#{MBUsuarios.usuarioModificar.usuMail}">
 								<f:validateRegex
 									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 							</p:inputText>
@@ -116,12 +116,12 @@
 
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 							<p:selectOneMenu id="tipoUsuario"
-								value="#{MBUsuarios.tipoUsuario}" 
-								style="width:200px">
+								value="#{MBUsuarios.tipoUsuario}" style="width:200px">
 								<f:selectItem itemLabel="Seleccione un tipo" itemValue="" />
 								<f:selectItems value="#{MBUsuarios.listTiposUsuario}" />
 							</p:selectOneMenu>
 						</div>
+
 
 						<div class="ui-g-12 ui-md-6 ui-lg-4">
 							<p:commandButton value="Modificar" style="width: 220px;"

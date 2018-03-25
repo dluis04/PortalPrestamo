@@ -25,7 +25,7 @@ public class MBUsuarios implements Serializable {
 	MBMensajes mensajes = new MBMensajes();
 	private Usuario vUsuario;
 	private Usuario usuarioCrear;
-	private Usuario usuarioSeleccionado;
+	private Usuario usuarioModificar;
 	private String confirmacionPassword;
 	private int tipoUsuario1;
 	private int tipoUsuario;
@@ -36,20 +36,23 @@ public class MBUsuarios implements Serializable {
 	List<SelectItem> listTiposUsuario;
 	List<Usuario> listUsuarios;
 	List<Usuario> filterUsuarios;
+	boolean isTipoUsuarioHabilitado;
 
 	public MBUsuarios() {
 		vUsuario = new Usuario();
 		usuarioCrear = new Usuario();
+		usuarioModificar = new Usuario();
 		consultarTodo();
+		isTipoUsuarioHabilitado=false;
 	}
 
 	public void consultarTodo() {
 		try {
 			inicializarDelegados();
-			
+
 			listTiposUsuario = new ArrayList<>();
 			listTipoUsuario = dNTipoUsuario.consultarTodosTipoUsuario();
-			
+
 			int cont = 1;
 			for (TipoUsuario list : listTipoUsuario) {
 
@@ -58,13 +61,17 @@ public class MBUsuarios implements Serializable {
 				}
 				cont++;
 			}
-			
-			listUsuarios=dnUsuarios.consultarUsuarios();
+
+			consultarTodosUsuarios();
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
+	}
+
+	public void consultarTodosUsuarios() throws Exception {
+		listUsuarios = dnUsuarios.consultarUsuarios();
 	}
 
 	public void guardarUsuario() throws Exception {
@@ -94,9 +101,15 @@ public class MBUsuarios implements Serializable {
 	public void consultarUsuarioByUsuario(Usuario usuario) throws Exception {
 
 		inicializarDelegados();
-		vUsuario = dnUsuarios.consultarUsuarioByUsuario(usuario);
+		usuarioModificar = dnUsuarios.consultarUsuarioByUsuario(usuario);
 
-		tipoUsuario = vUsuario.getTipoUsuario2().getIdTipoUsu();
+		tipoUsuario = usuarioModificar.getTipoUsuario2().getIdTipoUsu();
+		
+		if(tipoUsuario!=1 || tipoUsuario!=2) {
+			isTipoUsuarioHabilitado = false;
+		}else {
+			isTipoUsuarioHabilitado=true;
+		}
 
 	}
 
@@ -107,12 +120,37 @@ public class MBUsuarios implements Serializable {
 		StatusUsuario status = dNStatusUsuario.consultarDetalleStatusById(1);
 		TipoUsuario tipoUsu = dNTipoUsuario.consultarDetalleTipoUsuarioById(tipoUsuario);
 
-		vUsuario.setStatusUsuario2(status);
-		vUsuario.setTipoUsuario2(tipoUsu);
+		usuarioModificar.setStatusUsuario2(status);
+		usuarioModificar.setTipoUsuario2(tipoUsu);
 
-		if (dnUsuarios.actualizarUsuario(vUsuario) != null) {
+		if (dnUsuarios.actualizarUsuario(usuarioModificar) != null) {
 			mensajes.mostrarMensaje("Modificacion Exitosa", 1);
 		}
+	}
+
+	public void actualizarDatosUsuarioTabla(Usuario usuario) throws Exception {
+
+		usuarioModificar = usuario;
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+		String url2 = externalContext.encodeActionURL(context.getApplication().getViewHandler().getActionURL(context,
+				"/view/usuarios/modificarUsuario.xhtml"));
+		externalContext.redirect(url2);
+
+	}
+
+	public void eliminarUsuario(Usuario usuario) throws Exception {
+
+		inicializarDelegados();
+		StatusUsuario status = dNStatusUsuario.consultarDetalleStatusById(3);
+		usuario.setStatusUsuario2(status);
+
+		if (dnUsuarios.eliminarUsuario(usuario) != null) {
+			mensajes.mostrarMensaje("Usuario eliminado", 1);
+			consultarTodosUsuarios();
+		}
+
 	}
 
 	private void inicializarDelegados() throws Exception {
@@ -130,8 +168,23 @@ public class MBUsuarios implements Serializable {
 		}
 
 	}
-	
-	
+
+	public boolean isTipoUsuarioHabilitado() {
+		return isTipoUsuarioHabilitado;
+	}
+
+	public void setTipoUsuarioHabilitado(boolean isTipoUsuarioHabilitado) {
+		this.isTipoUsuarioHabilitado = isTipoUsuarioHabilitado;
+	}
+
+	public Usuario getUsuarioModificar() {
+		return usuarioModificar;
+	}
+
+	public void setUsuarioModificar(Usuario usuarioModificar) {
+		this.usuarioModificar = usuarioModificar;
+	}
+
 	public int getTipoUsuario1() {
 		return tipoUsuario1;
 	}
@@ -151,7 +204,7 @@ public class MBUsuarios implements Serializable {
 	public List<Usuario> getListUsuarios() {
 		return listUsuarios;
 	}
-	
+
 	public List<Usuario> getFilterUsuarios() {
 		return filterUsuarios;
 	}
@@ -162,14 +215,6 @@ public class MBUsuarios implements Serializable {
 
 	public void setListUsuarios(List<Usuario> listUsuarios) {
 		this.listUsuarios = listUsuarios;
-	}
-
-	public Usuario getUsuarioSeleccionado() {
-		return usuarioSeleccionado;
-	}
-
-	public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
-		this.usuarioSeleccionado = usuarioSeleccionado;
 	}
 
 	public int getTipoUsuario() {

@@ -127,6 +127,7 @@ public class SBUsuario implements SBUsuarioLocal {
 		return valorEnvio;
 	}
 
+	
 	@Override
 	public Usuario bloquearUsuarioStatus(Usuario usuario) throws Exception {
 
@@ -151,7 +152,7 @@ public class SBUsuario implements SBUsuarioLocal {
 
 	@Override
 	public List<Usuario> consultarUsuariosSistema() throws Exception {
-		String query = "SELECT u FROM Usuario u ";
+		String query = "SELECT u FROM Usuario u where u.statusUsuario2.idStatusUsu='1' ";
 		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
 		return listUsuario;
 	}
