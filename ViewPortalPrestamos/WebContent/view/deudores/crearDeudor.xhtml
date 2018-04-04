@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputScript library="js" name="validaciones2.js" />
+</h:head>
+<h:body>
+	<h:form id="form1">
+
+
+		<div class="container" style="text-align: center;">
+			<div class="brand" style="text-align: center;">
+				<h1 class="brand_name">
+					<a href="./">Portal Prestamos</a>
+				</h1>
+				<p class="brand_slogan">Registro Deudores</p>
+			</div>
+		</div>
+
+		<p:growl id="messages" />
+
+		<div align="left">
+
+			<p:panel id="datos">
+
+				<div class="ui-g">
+					<div class="ui-g-12 ui-md-6 ui-lg-3">
+						<h:outputText style="    font-weight: bold; "
+							value="Primer Nombre: " />
+					</div>
+
+					<div class="ui-g-12 ui-md-6 ui-lg-3">
+						<p:inputText style="width: 200px;" id="d1" maxlength="100"
+							required="true" requiredMessage="Debe Ingresar Primer Nombre"
+							value="#{MBDeudores.usuarioCrear.usuPrimernomb}">
+						</p:inputText>
+					</div>
+
+					<div class="ui-g-12 ui-md-6 ui-lg-3">
+						<h:outputText style="    font-weight: bold; "
+							value="Segundo Nombre: " />
+					</div>
+
+					<div class="ui-g-12 ui-md-6 ui-lg-3">
+						<p:inputText style="width: 200px;" id="d2" maxlength="100"
+							value="#{MBDeudores.usuarioCrear.usuSegundonomb}">
+						</p:inputText>
+					</div>
+
+					<div class="ui-g">
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Primer Apellido: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d3" maxlength="100"
+								required="true" requiredMessage="Debe Ingresar Primer Apellido"
+								value="#{MBDeudores.usuarioCrear.usuPrimerape}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Segundo Apellido: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d4" maxlength="100"
+								value="#{MBDeudores.usuarioCrear.usuSegundoape}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Numero Identificacion: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d5" maxlength="100"
+								required="true"
+								requiredMessage="Debe Ingresar Numero Identificacion"
+								value="#{MBDeudores.usuarioCrear.usuCedula}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Correo Eletrónico: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d6" maxlength="100"
+								label="Correo Eletrónico" validatorMessage="Correo No valido"
+								required="true"
+								requiredMessage="Debe Ingresar el Correo Eletrónico"
+								value="#{MBDeudores.usuarioCrear.usuMail}">
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Barrio: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d7" maxlength="100"
+								value="#{MBDeudores.usuarioCrear.usuDfBarrio}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Direccion: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d8" maxlength="100"
+								value="#{MBDeudores.usuarioCrear.usuDfDire}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Celular: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d9" maxlength="10"
+								value="#{MBDeudores.usuarioCrear.usuDfCel}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Telefono Fijo: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d10" maxlength="7"
+								value="#{MBDeudores.usuarioCrear.usuDfFijo}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Empresa: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d11" maxlength="80"
+								value="#{MBDeudores.usuarioCrear.usuDfEmpresa}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Direccion Empresa: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d12" maxlength="100"
+								value="#{MBDeudores.usuarioCrear.usuDfDireEmp}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Barrio Empresa: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d13" maxlength="100"
+								value="#{MBDeudores.usuarioCrear.usuDfBarrioEmp}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Telefono Trabajo: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d14" maxlength="10"
+								value="#{MBDeudores.usuarioCrear.usuDfTeltrabajo}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; " value="Ocupacion: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d15" maxlength="80"
+								value="#{MBDeudores.usuarioCrear.usuDfOcupacion}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Nombre Vecino: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d16" maxlength="100"
+								value="#{MBDeudores.usuarioCrear.usuDfNombvecino}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Direccion Vecino: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d17" maxlength="100"
+								value="#{MBDeudores.usuarioCrear.usuDfDireVec}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Barrio Vecino: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d18" maxlength="100"
+								value="#{MBDeudores.usuarioCrear.usuDfBarrioVec}">
+							</p:inputText>
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<h:outputText style="    font-weight: bold; "
+								value="Telefono Vecino: " />
+						</div>
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<p:inputText style="width: 200px;" id="d19" maxlength="10"
+								value="#{MBDeudores.usuarioCrear.usuDfTelvecino}">
+							</p:inputText>
+						</div>
+
+
+						<div class="ui-g-12 ui-md-6 ui-lg-4">
+							<p:commandButton value="Guardar" style="width: 220px;"
+								update="messages,datos"
+								actionListener="#{MBDeudores.guardarUsuario}"
+								styleClass="btn btn-green" id="guardar">
+							</p:commandButton>
+						</div>
+
+					</div>
+				</div>
+			</p:panel>
+		</div>
+
+	</h:form>
+</h:body>
+</html>
+
