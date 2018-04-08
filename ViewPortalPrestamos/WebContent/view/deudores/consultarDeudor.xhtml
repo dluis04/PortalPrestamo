@@ -15,7 +15,7 @@
 					<h1 class="brand_name">
 						<a href="./">Portal Prestamos</a>
 					</h1>
-					<p class="brand_slogan">Consultar Usuarios</p>
+					<p class="brand_slogan">Consultar Deudores</p>
 				</div>
 			</div>
 
@@ -26,7 +26,7 @@
 				<p:panel id="datos">
 
 					<p:dataTable id="tbl" var="datos"
-						value="#{MBUsuarios.listUsuarios}">
+						value="#{MBDeudores.listUsuarios}">
 
 						<f:facet name="header">
     					   Usuarios
@@ -49,11 +49,15 @@
 						<p:column headerText="Acciones">
 
 							<p:commandButton value="Modificar"
-								action="#{MBUsuarios.actualizarDatosUsuarioTabla(datos)}"
+								action="#{MBDeudores.actualizarDatosDeudor(datos)}"
 								update=":formPrincipal:messages,tbl" />
 
 							<p:commandButton value="Eliminar"
-								action="#{MBUsuarios.eliminarUsuario(datos)}"
+								action="#{MBDeudores.eliminarUsuario(datos)}"
+								update=":formPrincipal:messages,tbl" />
+
+							<p:commandButton value="Prestamo"
+								action="#{MBDeudores.redireccionPrestamo(datos)}"
 								update=":formPrincipal:messages,tbl" />
 
 						</p:column>

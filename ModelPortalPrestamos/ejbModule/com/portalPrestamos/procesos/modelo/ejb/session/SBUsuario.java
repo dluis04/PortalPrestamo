@@ -127,7 +127,6 @@ public class SBUsuario implements SBUsuarioLocal {
 		return valorEnvio;
 	}
 
-	
 	@Override
 	public Usuario bloquearUsuarioStatus(Usuario usuario) throws Exception {
 
@@ -155,6 +154,29 @@ public class SBUsuario implements SBUsuarioLocal {
 		String query = "SELECT u FROM Usuario u where u.statusUsuario2.idStatusUsu='1' ";
 		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
 		return listUsuario;
+	}
+
+	@Override
+	public List<Usuario> consultarDeudoresActivos() throws Exception {
+		String query = "SELECT u FROM Usuario u where u.tipoUsuario2.idTipoUsu='4' and u.statusUsuario2.idStatusUsu='1' ";
+		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
+		return listUsuario;
+	}
+
+	@Override
+	public boolean consultarCedulaExiste(Usuario deudor) throws Exception {
+
+		boolean isVerificacion = false;
+
+		String query = "SELECT u FROM Usuario u where u.tipoUsuario2.idTipoUsu='4' and u.usuCedula='"
+				+ deudor.getUsuCedula() + "' ";
+
+		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
+		if (listUsuario.size() > 0) {
+			isVerificacion = true;
+		}
+
+		return isVerificacion;
 	}
 
 }

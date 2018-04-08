@@ -30,5 +30,9 @@ public interface SBUsuarioLocal {
 	public Usuario modificarPassword(Usuario usuario) throws Exception;
 	
 	public List<Usuario> consultarUsuariosSistema() throws Exception;
-
+	
+	public List<Usuario> consultarDeudoresActivos()  throws Exception;
+	
+	public boolean consultarCedulaExiste(Usuario deudor) throws Exception;
+	
 }

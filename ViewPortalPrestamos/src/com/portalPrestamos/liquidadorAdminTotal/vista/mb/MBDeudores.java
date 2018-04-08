@@ -1,19 +1,17 @@
 package com.portalPrestamos.liquidadorAdminTotal.vista.mb;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 
 import com.portalPrestamos.estandar.vista.mb.MBMensajes;
+import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNDeudores;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNStatusUsuario;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNTipoUsuario;
-import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNUsuarios;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.StatusUsuario;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.TipoUsuario;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
@@ -23,46 +21,25 @@ import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 public class MBDeudores implements Serializable {
 
 	MBMensajes mensajes = new MBMensajes();
-	private Usuario vUsuario;
+
 	private Usuario usuarioCrear;
 	private Usuario usuarioModificar;
-	private String confirmacionPassword;
-	private int tipoUsuario1;
-	private int tipoUsuario;
-	DNUsuarios dnUsuarios;
+	DNDeudores dnDeudores;
 	DNTipoUsuario dNTipoUsuario;
 	DNStatusUsuario dNStatusUsuario;
-	List<TipoUsuario> listTipoUsuario;
-	List<SelectItem> listTiposUsuario;
 	List<Usuario> listUsuarios;
 	List<Usuario> filterUsuarios;
-	boolean isTipoUsuarioHabilitado;
 
 	public MBDeudores() {
-		vUsuario = new Usuario();
 		usuarioCrear = new Usuario();
 		usuarioModificar = new Usuario();
 		consultarTodo();
-		isTipoUsuarioHabilitado = false;
 	}
 
 	public void consultarTodo() {
 		try {
 			inicializarDelegados();
-
-			listTiposUsuario = new ArrayList<>();
-			listTipoUsuario = dNTipoUsuario.consultarTodosTipoUsuario();
-
-			int cont = 1;
-			for (TipoUsuario list : listTipoUsuario) {
-
-				if (cont != 1) {
-					listTiposUsuario.add(new SelectItem(list.getIdTipoUsu(), list.getTpuTipoUsu()));
-				}
-				cont++;
-			}
-
-			consultarTodosUsuarios();
+			consultarTodosDeudores();
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -70,39 +47,30 @@ public class MBDeudores implements Serializable {
 
 	}
 
-	public void consultarTodosUsuarios() throws Exception {
-		listUsuarios = dnUsuarios.consultarUsuarios();
+	public void consultarTodosDeudores() throws Exception {
+		listUsuarios = dnDeudores.consultarDeudoresActivos();
 	}
 
-	public void guardarUsuario() throws Exception {
+	public void guardarUsuario(int tipoUsuario) throws Exception {
 
 		inicializarDelegados();
 
-		StatusUsuario status = dNStatusUsuario.consultarDetalleStatusById(1);
-		TipoUsuario tipoUsu = dNTipoUsuario.consultarDetalleTipoUsuarioById(4);
+		if (!dnDeudores.consultarCedulaDeudor(usuarioCrear)) {
 
-		usuarioCrear.setStatusUsuario2(status);
-		usuarioCrear.setTipoUsuario2(tipoUsu);
+			StatusUsuario status = dNStatusUsuario.consultarDetalleStatusById(1);
+			TipoUsuario tipoUsu = dNTipoUsuario.consultarDetalleTipoUsuarioById(tipoUsuario);
 
-		if (dnUsuarios.crearUsuario(usuarioCrear) != null) {
-			usuarioCrear = null;
-			usuarioCrear = new Usuario();
-			mensajes.mostrarMensaje("Registro Exitoso", 1);
-		}
+			usuarioCrear.setStatusUsuario2(status);
+			usuarioCrear.setTipoUsuario2(tipoUsu);
 
-	}
+			if (dnDeudores.crearUsuario(usuarioCrear) != null) {
+				usuarioCrear = null;
+				usuarioCrear = new Usuario();
+				mensajes.mostrarMensaje("Registro Exitoso", 1);
+			}
 
-	public void consultarUsuarioByUsuario(Usuario usuario) throws Exception {
-
-		inicializarDelegados();
-		usuarioModificar = dnUsuarios.consultarUsuarioByUsuario(usuario);
-
-		tipoUsuario = usuarioModificar.getTipoUsuario2().getIdTipoUsu();
-
-		if (tipoUsuario != 1 || tipoUsuario != 2) {
-			isTipoUsuarioHabilitado = false;
 		} else {
-			isTipoUsuarioHabilitado = true;
+			mensajes.mostrarMensaje("La cedula ya existe, favor validar", 3);
 		}
 
 	}
@@ -111,25 +79,21 @@ public class MBDeudores implements Serializable {
 
 		inicializarDelegados();
 
-		//StatusUsuario status = dNStatusUsuario.consultarDetalleStatusById(1);
-		//TipoUsuario tipoUsu = dNTipoUsuario.consultarDetalleTipoUsuarioById(tipoUsuario);
-
-		// usuarioModificar.setStatusUsuario2(status);
-		// usuarioModificar.setTipoUsuario2(tipoUsu);
-
-		if (dnUsuarios.actualizarUsuario(usuarioModificar) != null) {
+		if (dnDeudores.actualizarUsuario(usuarioModificar) != null) {
+			usuarioModificar = null;
+			usuarioModificar = new Usuario();
 			mensajes.mostrarMensaje("Modificacion Exitosa", 1);
 		}
 	}
 
-	public void actualizarDatosUsuarioTabla(Usuario usuario) throws Exception {
+	public void actualizarDatosDeudor(Usuario deudor) throws Exception {
 
-		usuarioModificar = usuario;
+		usuarioModificar = deudor;
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 		String url2 = externalContext.encodeActionURL(context.getApplication().getViewHandler().getActionURL(context,
-				"/view/usuarios/modificarDeudor.xhtml"));
+				"/view/deudores/modificarDeudor.xhtml"));
 		externalContext.redirect(url2);
 
 	}
@@ -140,17 +104,27 @@ public class MBDeudores implements Serializable {
 		StatusUsuario status = dNStatusUsuario.consultarDetalleStatusById(3);
 		usuario.setStatusUsuario2(status);
 
-		if (dnUsuarios.eliminarUsuario(usuario) != null) {
-			mensajes.mostrarMensaje("Deudor eliminado", 1);
-			consultarTodosUsuarios();
+		if (dnDeudores.eliminarUsuario(usuario) != null) {
+			mensajes.mostrarMensaje("Cliente eliminado", 1);
+			consultarTodosDeudores();
 		}
+
+	}
+
+	public void redireccionarRegistrarfiador() throws Exception {
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+		String url2 = externalContext.encodeActionURL(
+				context.getApplication().getViewHandler().getActionURL(context, "/view/deudores/crearFiador.xhtml"));
+		externalContext.redirect(url2);
 
 	}
 
 	private void inicializarDelegados() throws Exception {
 
-		if (dnUsuarios == null) {
-			dnUsuarios = new DNUsuarios();
+		if (dnDeudores == null) {
+			dnDeudores = new DNDeudores();
 		}
 
 		if (dNTipoUsuario == null) {
@@ -163,28 +137,12 @@ public class MBDeudores implements Serializable {
 
 	}
 
-	public boolean isTipoUsuarioHabilitado() {
-		return isTipoUsuarioHabilitado;
-	}
-
-	public void setTipoUsuarioHabilitado(boolean isTipoUsuarioHabilitado) {
-		this.isTipoUsuarioHabilitado = isTipoUsuarioHabilitado;
-	}
-
 	public Usuario getUsuarioModificar() {
 		return usuarioModificar;
 	}
 
 	public void setUsuarioModificar(Usuario usuarioModificar) {
 		this.usuarioModificar = usuarioModificar;
-	}
-
-	public int getTipoUsuario1() {
-		return tipoUsuario1;
-	}
-
-	public void setTipoUsuario1(int tipoUsuario1) {
-		this.tipoUsuario1 = tipoUsuario1;
 	}
 
 	public Usuario getUsuarioCrear() {
@@ -209,46 +167,6 @@ public class MBDeudores implements Serializable {
 
 	public void setListUsuarios(List<Usuario> listUsuarios) {
 		this.listUsuarios = listUsuarios;
-	}
-
-	public int getTipoUsuario() {
-		return tipoUsuario;
-	}
-
-	public void setTipoUsuario(int tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
-	}
-
-	public List<TipoUsuario> getListTipoUsuario() {
-		return listTipoUsuario;
-	}
-
-	public void setListTipoUsuario(List<TipoUsuario> listTipoUsuario) {
-		this.listTipoUsuario = listTipoUsuario;
-	}
-
-	public List<SelectItem> getListTiposUsuario() {
-		return listTiposUsuario;
-	}
-
-	public void setListTiposUsuario(List<SelectItem> listTiposUsuario) {
-		this.listTiposUsuario = listTiposUsuario;
-	}
-
-	public Usuario getvUsuario() {
-		return vUsuario;
-	}
-
-	public void setvUsuario(Usuario vUsuario) {
-		this.vUsuario = vUsuario;
-	}
-
-	public String getConfirmacionPassword() {
-		return confirmacionPassword;
-	}
-
-	public void setConfirmacionPassword(String confirmacionPassword) {
-		this.confirmacionPassword = confirmacionPassword;
 	}
 
 }

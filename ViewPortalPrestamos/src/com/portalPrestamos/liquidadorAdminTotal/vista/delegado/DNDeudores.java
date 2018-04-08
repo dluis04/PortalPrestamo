@@ -31,36 +31,20 @@ public class DNDeudores {
 		return sBUsuarioLocal.actualizarUsuario(usuario);
 	}
 
-	public List<Usuario> consultarUsuarios() throws Exception {
-		return sBUsuarioLocal.consultarUsuariosSistema();
-	}
-
-	public int consultarUsuarioInicio(Usuario user) throws Exception {
-		return sBUsuarioLocal.consultarUsuarioInicio(user);
-	}
-
-	public int consultarUsuarioExistente(Usuario user) throws Exception {
-		return sBUsuarioLocal.consultarUsuarioRepetido(user);
+	public List<Usuario> consultarDeudoresActivos() throws Exception {
+		return sBUsuarioLocal.consultarDeudoresActivos();
 	}
 
 	public Usuario consultarUsuarioByUsuario(Usuario user) throws Exception {
 		return sBUsuarioLocal.consultarDetalleByUsuario(user);
 	}
 
-	public int recuperarPassword(Usuario usuario) throws Exception {
-		return sBUsuarioLocal.recuperarPassword(usuario);
-	}
-
-	public Usuario bloquearUsuarioStatus(Usuario usuario) throws Exception {
-		return sBUsuarioLocal.bloquearUsuarioStatus(usuario);
+	public boolean consultarCedulaDeudor(Usuario deudor) throws Exception {
+		return sBUsuarioLocal.consultarCedulaExiste(deudor);
 	}
 
 	public Usuario eliminarUsuario(Usuario usuario) throws Exception {
 		return sBUsuarioLocal.eliminarUsuario(usuario);
-	}
-
-	public Usuario modificarPassword(Usuario usuario) throws Exception {
-		return sBUsuarioLocal.modificarPassword(usuario);
 	}
 
 }
