@@ -31,6 +31,10 @@ public class DNModulo {
 		return sBModuloLocal.consultarAllModulos();
 	}
 
+	public List<Modulo> consultarAllModulosActivos() throws Exception {
+		return sBModuloLocal.consultarAllModulosActivos();
+	}
+
 	public Modulo consultarModulosById(Modulo modulo) throws Exception {
 		return sBModuloLocal.consultarModulosById(modulo);
 	}

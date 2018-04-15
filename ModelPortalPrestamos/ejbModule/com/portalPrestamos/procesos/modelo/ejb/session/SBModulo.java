@@ -59,4 +59,11 @@ public class SBModulo implements SBModuloLocal {
 		return entity;
 	}
 
+	@Override
+	public List<Modulo> consultarAllModulosActivos() throws Exception {
+		String query = "SELECT u FROM Modulo u where u.modActiva='1' ";
+		List<Modulo> listModulo = sbFacade.executeQuery(query, null);
+		return listModulo;
+	}
+
 }

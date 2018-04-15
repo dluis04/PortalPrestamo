@@ -1542,6 +1542,23 @@ footer .copyright a:hover {
 					<legend>Inicio de sesión</legend>
 					<div class="row">
 						<div class="small-12 columns">
+
+
+							<div class="input-group">
+								<p:focus for="username" />
+
+								<h:outputLabel for="username" value="Usuario: " />
+								<p:inputText value="#{MBLogin.vUsuario.usuUsuario}"
+									id="username" label="Usuario" />
+							</div>
+
+							<div class="input-group">
+								<h:outputLabel for="password" value="Contraseña: " />
+								<p:password value="#{MBLogin.vUsuario.usuPassword}"
+									id="password" label="Contraseña:" />
+							</div>
+
+							<!--  
 							<div class="input-group">
 								<p:focus for="username" />
 
@@ -1557,6 +1574,8 @@ footer .copyright a:hover {
 									id="password" requiredMessage="Debe ingresar la Contraseña"
 									required="false" label="Contraseña:" />
 							</div>
+							
+							-->
 						</div>
 					</div>
 

@@ -45,6 +45,8 @@ public class MBLogin implements Serializable {
 	}
 
 	public void iniciarSesion() throws Exception {
+		vUsuario.setUsuUsuario("dluis");
+		vUsuario.setUsuPassword("123");
 
 		inicializarDelegados();
 		intentosSesion = dnLogSesiones.consultarIntentosFallidos(vUsuario);
