@@ -1,0 +1,190 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/view/menu/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+
+			<div class="container" style="text-align: center;">
+				<div class="brand" style="text-align: center;">
+					<h1 class="brand_name">
+						<a href="./">Portal Prestamo</a>
+					</h1>
+					<p class="brand_slogan">Permisos Usuario</p>
+				</div>
+			</div>
+
+			<p:tabView id="tapView">
+
+				<p:tab id="tapRegistro" title="Registro">
+
+					<p:growl id="messages1" />
+
+					<div align="center">
+
+						<h:outputText style="    font-weight: bold; "
+							value="Seleccion un Usuario" />
+
+						<p:dataTable id="tbl1" var="dato" selectionMode="single"
+							selection="#{MBPermisoUsuario.selectionUsuario}"
+							rowKey="#{dato.idUsuario}"
+							value="#{MBPermisoUsuario.listUsuarios}"
+							emptyMessage="No hay datos">
+
+							<p:column headerText="Codigo">
+								<h:outputText value="#{dato.idUsuario}" />
+							</p:column>
+
+							<p:column headerText="Primer Nombre">
+								<h:outputText value="#{dato.usuPrimernomb}" />
+							</p:column>
+
+							<p:column headerText="Segundo Nombre">
+								<h:outputText value="#{dato.usuSegundonomb}" />
+							</p:column>
+
+							<p:column headerText="Primer Apellido">
+								<h:outputText value="#{dato.usuPrimerape}" />
+							</p:column>
+
+							<p:column headerText="Segundo Apellido">
+								<h:outputText value="#{dato.usuSegundoape}" />
+							</p:column>
+
+						</p:dataTable>
+
+						<br></br>
+
+						<h:outputText style="    font-weight: bold; "
+							value="Seleccion un Acción" />
+
+						<p:dataTable id="tbl2" var="dato" selectionMode="single"
+							selection="#{MBPermisoUsuario.selectionAccion}"
+							rowKey="#{dato.idAcciones}"
+							value="#{MBPermisoUsuario.listAccionesModulo}"
+							emptyMessage="No hay datos">
+
+							<p:column headerText="Codigo">
+								<h:outputText value="#{dato.idAcciones}" />
+							</p:column>
+
+							<p:column headerText="Modulo">
+								<h:outputText value="#{dato.modulo.modNombre}" />
+							</p:column>
+
+							<p:column headerText="Accion">
+								<h:outputText value="#{dato.acmNombre}" />
+							</p:column>
+
+						</p:dataTable>
+
+						<br></br>
+
+						<h:panelGrid id="campos" columns="2" cellpadding="4">
+
+							<h:outputText style="    font-weight: bold; " value="Estado : " />
+
+							<p:selectOneMenu id="estado" style="width:200px"
+								value="#{MBPermisoUsuario.crearPermisoUsu.peuActiva}">
+								<f:selectItem itemLabel="Seleccione:" itemValue="-1" />
+								<f:selectItem itemLabel="ACTIVO" itemValue="1" />
+								<f:selectItem itemLabel="INACTIVO" itemValue="0" />
+							</p:selectOneMenu>
+
+							<p:commandButton value="Guardar" style="width: 220px;"
+								update=":formPrincipal:tapView:campos, messages1
+							,:formPrincipal:tapView:tbl3"
+								action="#{MBPermisoUsuario.guardarPermiso(MBLogin.vUsuario)}"
+								styleClass="btn btn-green" id="guardar">
+							</p:commandButton>
+
+
+						</h:panelGrid>
+
+					</div>
+
+				</p:tab>
+
+
+				<p:tab id="tapConsulta" title="Consulta / Modificación">
+
+
+					<div align="center">
+						<h:panelGrid id="camposModificar" columns="2" cellpadding="4">
+
+							<h:outputText style="  font-weight: bold; " value="Estado: " />
+
+							<p:selectOneMenu id="estado2" style="width:200px"
+								value="#{MBPermisoUsuario.modificarPermisoUsu.peuActiva}">
+								<f:selectItem itemLabel="Seleccione:" itemValue="" />
+								<f:selectItem itemLabel="ACTIVO" itemValue="1" />
+								<f:selectItem itemLabel="INACTIVO" itemValue="0" />
+							</p:selectOneMenu>
+
+							<p:commandButton value="Modificar" style="width: 220px;"
+								update=":formPrincipal:tapView:camposModificar, messages1
+							,:formPrincipal:tapView:tbl3"
+								action="#{MBPermisoUsuario.guardarModificar}"
+								styleClass="btn btn-green" id="modificar">
+							</p:commandButton>
+
+
+						</h:panelGrid>
+
+						<br></br>
+
+
+						<p:dataTable id="tbl3" var="dato" selectionMode="single"
+							selection="#{MBPermisoUsuario.selectionPermiso}"
+							rowKey="#{dato.idPermiso}"
+							value="#{MBPermisoUsuario.listPermisoUsuario}"
+							emptyMessage="No hay datos">
+
+							<p:ajax event="rowSelect"
+								listener="#{MBPermisoUsuario.consultarDatos}"
+								update=":formPrincipal:tapView:camposModificar" />
+
+
+							<p:column headerText="Codigo">
+								<h:outputText value="#{dato.idPermiso}" />
+							</p:column>
+
+							<p:column headerText="Nombre Usuario">
+								<h:outputText
+									value="#{dato.usuario.usuPrimernomb} #{dato.usuario.usuSegundonomb} #{dato.usuario.usuPrimerape}" />
+							</p:column>
+
+							<p:column headerText="Modulo">
+								<h:outputText value="#{dato.accionesModulo.modulo.modNombre}" />
+							</p:column>
+
+							<p:column headerText="Accion">
+								<h:outputText value="#{dato.accionesModulo.acmNombre}" />
+							</p:column>
+
+							<p:column headerText="Estado">
+								<h:outputText value="#{dato.peuActiva}" />
+							</p:column>
+
+							<p:column headerText="Fecha Asignacion">
+								<h:outputText value="#{dato.peuFechaAsignacion}" />
+							</p:column>
+						</p:dataTable>
+					</div>
+				</p:tab>
+
+			</p:tabView>
+
+
+		</h:form>
+
+
+
+
+	</ui:define>
+
+</ui:composition>

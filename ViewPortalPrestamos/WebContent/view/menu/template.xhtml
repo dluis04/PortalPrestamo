@@ -117,6 +117,9 @@ a {
 
 					<p:menuitem value="Consultar Usuarios"
 						url="/view/usuarios/consultarUsuarios.xhtml" />
+
+					<p:menuitem value="Gestion Permisos"
+						url="/view/permisos/gestionPermisosUsu.xhtml" />
 				</p:submenu>
 
 				<p:submenu label="Gestion Deudores" icon="ui-icon-contact">
@@ -140,8 +143,8 @@ a {
 					<p:menuitem value="Registrar Funcion Modulo"
 						url="/view/modulo/accionesModulo.xhtml" />
 
-
 				</p:submenu>
+
 
 				<p:menuitem value="Modificar Usuario"
 					onstart="#{MBUsuarios.consultarUsuarioByUsuario(MBLogin.vUsuario)}"
