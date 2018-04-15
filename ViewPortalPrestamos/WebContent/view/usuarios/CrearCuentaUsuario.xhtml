@@ -23,16 +23,12 @@
 				<p class="brand_slogan">Registro Usuarios</p>
 			</div>
 		</div>
-
-
+		
 		<p:growl id="messages" />
-
 
 		<div align="left">
 
 			<p:panel id="datos">
-
-
 
 				<div class="ui-g">
 					<div class="ui-g-12 ui-md-6 ui-lg-3">
@@ -43,7 +39,7 @@
 					<div class="ui-g-12 ui-md-6 ui-lg-3">
 						<p:inputText style="width: 200px;" id="d1" maxlength="100"
 							required="true" requiredMessage="Debe Ingresar Primer Nombre"
-							value="#{MBUsuarios.vUsuario.usuPrimernomb}">
+							value="#{MBUsuarios.usuarioCrear.usuPrimernomb}">
 						</p:inputText>
 					</div>
 
@@ -54,7 +50,7 @@
 
 					<div class="ui-g-12 ui-md-6 ui-lg-3">
 						<p:inputText style="width: 200px;" id="d2" maxlength="100"
-							value="#{MBUsuarios.vUsuario.usuSegundonomb}">
+							value="#{MBUsuarios.usuarioCrear.usuSegundonomb}">
 						</p:inputText>
 					</div>
 
@@ -67,7 +63,7 @@
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 							<p:inputText style="width: 200px;" id="d3" maxlength="100"
 								required="true" requiredMessage="Debe Ingresar Primer Apellido"
-								value="#{MBUsuarios.vUsuario.usuPrimerape}">
+								value="#{MBUsuarios.usuarioCrear.usuPrimerape}">
 							</p:inputText>
 						</div>
 
@@ -78,10 +74,9 @@
 
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 							<p:inputText style="width: 200px;" id="d4" maxlength="100"
-								value="#{MBUsuarios.vUsuario.usuSegundoape}">
+								value="#{MBUsuarios.usuarioCrear.usuSegundoape}">
 							</p:inputText>
 						</div>
-
 
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 							<h:outputText style="    font-weight: bold; "
@@ -92,7 +87,7 @@
 							<p:inputText style="width: 200px;" id="d5" maxlength="100"
 								required="true"
 								requiredMessage="Debe Ingresar Numero Identificacion"
-								value="#{MBUsuarios.vUsuario.usuCedula}">
+								value="#{MBUsuarios.usuarioCrear.usuCedula}">
 							</p:inputText>
 						</div>
 
@@ -106,7 +101,7 @@
 								label="Correo Eletrónico" validatorMessage="Correo No valido"
 								required="true"
 								requiredMessage="Debe Ingresar el Correo Eletrónico"
-								value="#{MBUsuarios.vUsuario.usuMail}">
+								value="#{MBUsuarios.usuarioCrear.usuMail}">
 								<f:validateRegex
 									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 							</p:inputText>
@@ -119,7 +114,7 @@
 
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 							<p:selectOneMenu id="tipoUsuario"
-								value="#{MBUsuarios.tipoUsuario}" lazy="true"
+								value="#{MBUsuarios.tipoUsuario1}" lazy="true"
 								style="width:200px">
 								<f:selectItem itemLabel="Seleccione un tipo" itemValue="" />
 								<f:selectItems value="#{MBUsuarios.listTiposUsuario}" />
@@ -131,10 +126,9 @@
 						</div>
 
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
-
 							<p:inputText style="width: 200px;" id="d7" maxlength="100"
 								required="true" requiredMessage="Debe Ingresar El Usuario"
-								value="#{MBUsuarios.vUsuario.usuUsuario}">
+								value="#{MBUsuarios.usuarioCrear.usuUsuario}">
 							</p:inputText>
 						</div>
 
@@ -147,7 +141,7 @@
 						<div class="ui-g-12 ui-md-6 ui-lg-3">
 							<p:password style="width: 200px;" id="d8" maxlength="100"
 								required="true" requiredMessage="Debe Ingresar La Contraseña"
-								value="#{MBUsuarios.vUsuario.usuPassword}">
+								value="#{MBUsuarios.usuarioCrear.usuPassword}">
 							</p:password>
 						</div>
 
@@ -166,11 +160,11 @@
 
 						<div class="ui-g-12 ui-md-6 ui-lg-4">
 							<p:commandButton value="Guardar" style="width: 220px;"
-								update="messages,datos" actionListener="#{MBUsuarios.guardarUsuario}"
+								update="messages,datos"
+								actionListener="#{MBUsuarios.guardarUsuario}"
 								styleClass="btn btn-green" id="guardar">
 							</p:commandButton>
 						</div>
-
 
 					</div>
 				</div>

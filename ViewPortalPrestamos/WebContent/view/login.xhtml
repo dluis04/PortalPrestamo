@@ -1542,6 +1542,23 @@ footer .copyright a:hover {
 					<legend>Inicio de sesión</legend>
 					<div class="row">
 						<div class="small-12 columns">
+
+
+							<div class="input-group">
+								<p:focus for="username" />
+
+								<h:outputLabel for="username" value="Usuario: " />
+								<p:inputText value="#{MBLogin.vUsuario.usuUsuario}"
+									id="username" label="Usuario" />
+							</div>
+
+							<div class="input-group">
+								<h:outputLabel for="password" value="Contraseña: " />
+								<p:password value="#{MBLogin.vUsuario.usuPassword}"
+									id="password" label="Contraseña:" />
+							</div>
+
+							<!--  
 							<div class="input-group">
 								<p:focus for="username" />
 
@@ -1557,6 +1574,8 @@ footer .copyright a:hover {
 									id="password" requiredMessage="Debe ingresar la Contraseña"
 									required="false" label="Contraseña:" />
 							</div>
+							
+							-->
 						</div>
 					</div>
 
@@ -1565,15 +1584,16 @@ footer .copyright a:hover {
 
 
 							<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
-								id="dialogPass" closable="false" resizable="false" showHeader="false">
+								id="dialogPass" closable="false" resizable="false"
+								showHeader="false">
 								<p:inputText value="#{MBLogin.vUsuario.usuMail}" id="userMail"
 									required="false"
 									requiredMessage="Debe ingresar el correo electrónico"
-									label="Correo electrónico"  />
+									label="Correo electrónico" />
 
 								<p:commandButton value="Enviar" style="width: 220px;"
 									oncomplete="PF('statusDialog').hide();"
-									action="#{MBLogin.recuperarPass}" update="mensajes,dialogPass"/>
+									action="#{MBLogin.recuperarPass}" update="mensajes,dialogPass" />
 
 								<p:commandButton value="Cancelar" style="width: 220px;"
 									oncomplete="PF('statusDialog').hide();" />
@@ -1596,8 +1616,6 @@ footer .copyright a:hover {
 									action="#{MBLogin.iniciarSesion}" />
 
 							</h:panelGrid>
-
-
 
 
 						</div>

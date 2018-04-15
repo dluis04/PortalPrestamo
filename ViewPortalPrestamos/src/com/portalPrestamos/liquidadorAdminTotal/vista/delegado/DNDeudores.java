@@ -11,13 +11,13 @@ import com.portalPrestamos.procesos.modelo.ejb.session.SBUsuarioLocal;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.StatusUsuario;
 import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 
-@ManagedBean(value = "DNUsuarios")
+@ManagedBean(value = "DNDeudores")
 @ApplicationScoped
-public class DNUsuarios {
+public class DNDeudores {
 
 	SBUsuarioLocal sBUsuarioLocal;
 
-	public DNUsuarios() throws Exception {
+	public DNDeudores() throws Exception {
 		sBUsuarioLocal = ServiceLocator.getInstance().obtenerServicio(
 				Parametros.PREFIJO_JNDI + "SBUsuario" + Parametros.PREFIJO_ADICIONAL_JNDI + "SBUsuarioLocal",
 				SBUsuarioLocal.class);
@@ -31,36 +31,20 @@ public class DNUsuarios {
 		return sBUsuarioLocal.actualizarUsuario(usuario);
 	}
 
-	public List<Usuario> consultarUsuarios() throws Exception {
-		return sBUsuarioLocal.consultarUsuariosSistema();
-	}
-
-	public int consultarUsuarioInicio(Usuario user) throws Exception {
-		return sBUsuarioLocal.consultarUsuarioInicio(user);
-	}
-
-	public int consultarUsuarioExistente(Usuario user) throws Exception {
-		return sBUsuarioLocal.consultarUsuarioRepetido(user);
+	public List<Usuario> consultarDeudoresActivos() throws Exception {
+		return sBUsuarioLocal.consultarDeudoresActivos();
 	}
 
 	public Usuario consultarUsuarioByUsuario(Usuario user) throws Exception {
 		return sBUsuarioLocal.consultarDetalleByUsuario(user);
 	}
 
-	public int recuperarPassword(Usuario usuario) throws Exception {
-		return sBUsuarioLocal.recuperarPassword(usuario);
-	}
-
-	public Usuario bloquearUsuarioStatus(Usuario usuario) throws Exception {
-		return sBUsuarioLocal.bloquearUsuarioStatus(usuario);
+	public boolean consultarCedulaDeudor(Usuario deudor) throws Exception {
+		return sBUsuarioLocal.consultarCedulaExiste(deudor);
 	}
 
 	public Usuario eliminarUsuario(Usuario usuario) throws Exception {
 		return sBUsuarioLocal.eliminarUsuario(usuario);
-	}
-
-	public Usuario modificarPassword(Usuario usuario) throws Exception {
-		return sBUsuarioLocal.modificarPassword(usuario);
 	}
 
 }

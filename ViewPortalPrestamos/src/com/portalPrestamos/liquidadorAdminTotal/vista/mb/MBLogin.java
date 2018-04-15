@@ -1,13 +1,14 @@
 package com.portalPrestamos.liquidadorAdminTotal.vista.mb;
 
 import java.io.Serializable;
-
 import java.util.Date;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
 import com.portalPrestamos.estandar.vista.mb.MBMensajes;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNConfiguracionApp;
 import com.portalPrestamos.liquidadorAdminTotal.vista.delegado.DNLogSesiones;
@@ -44,32 +45,42 @@ public class MBLogin implements Serializable {
 	}
 
 	public void iniciarSesion() throws Exception {
+		vUsuario.setUsuUsuario("dluis");
+		vUsuario.setUsuPassword("123");
 
 		inicializarDelegados();
 		intentosSesion = dnLogSesiones.consultarIntentosFallidos(vUsuario);
 		int valorConfigIntentos = dnConfigApp.consultaConfiguracionIntentosInicioSesion(1);
+		int usuarioExiste = dnUsuarios.consultarUsuarioExistente(vUsuario);
 
-		if (intentosSesion < valorConfigIntentos) {
-			if (dnUsuarios.consultarUsuarioInicio(vUsuario) == 1) {
+		if (usuarioExiste == 1) {
 
-				logSesionUsuario(vUsuario, "CORRECTO");
-				vUsuario.setUsuUsuario("");
-				isBloqueado = false;
+			if (intentosSesion < valorConfigIntentos) {
+				if (dnUsuarios.consultarUsuarioInicio(vUsuario) == 1) {
 
-				FacesContext context = FacesContext.getCurrentInstance();
-				ExternalContext externalContext = context.getExternalContext();
-				String url2 = externalContext.encodeActionURL(context.getApplication().getViewHandler()
-						.getActionURL(context, "/view/usuarios/CrearCuentaUsuario.xhtml"));
-				externalContext.redirect(url2);
+					logSesionUsuario(vUsuario, "CORRECTO");
+
+					isBloqueado = false;
+
+					FacesContext context = FacesContext.getCurrentInstance();
+					ExternalContext externalContext = context.getExternalContext();
+					String url2 = externalContext.encodeActionURL(context.getApplication().getViewHandler()
+							.getActionURL(context, "/view/gestion/bienvenido.xhtml"));
+					externalContext.redirect(url2);
+				} else {
+					mensajes.mostrarMensaje("Usuario o contraseña incorrectos", 2);
+					logSesionUsuario(vUsuario, "INCORRECTO");
+				}
 			} else {
-				logSesionUsuario(vUsuario, "INCORRECTO");
+				mensajes.mostrarMensaje("Usuario Bloqueado por maximo intentos permitidos", 2);
+				logSesionUsuario(vUsuario, "BLOQUEADO");
+				if (!isBloqueado) {
+					bloquearUsuario();
+				}
 			}
+
 		} else {
-			mensajes.mostrarMensaje("Usuario Bloqueado por maximo intentos permitidos", 2);
-			logSesionUsuario(vUsuario, "BLOQUEADO");
-			if (!isBloqueado) {
-				bloquearUsuario();
-			}
+			mensajes.mostrarMensaje("Usuario o contraseña incorrectos", 2);
 		}
 	}
 
@@ -81,6 +92,7 @@ public class MBLogin implements Serializable {
 		vUsuario = dnUsuarios.bloquearUsuarioStatus(vUsuario);
 
 		if (vUsuario.getIdUsuario() != 0) {
+
 			TiposBloqueo tipoBloqueo = dNTipoBloqueo.consultarDetalleTipoBloqueoById(1);
 			UsuariosBloqueado usuarioBloqueado = new UsuariosBloqueado();
 			Date fecha = new Date();

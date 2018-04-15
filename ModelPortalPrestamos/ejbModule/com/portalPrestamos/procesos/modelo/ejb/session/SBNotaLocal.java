@@ -11,9 +11,11 @@ import com.portalPrestamosl.procesos.modelo.ejb.entity.procesos.Usuario;
 public interface SBNotaLocal {
 
 	public Nota crearNota(Nota nuevaNota) throws Exception;
+
 	public List<Nota> consultarNotaByUsuario(Usuario usuario) throws Exception;
+
 	public Nota modificarNota(Nota nota) throws Exception;
+
 	public void eleminarNota(Nota nota) throws Exception;
-	
-	
+
 }

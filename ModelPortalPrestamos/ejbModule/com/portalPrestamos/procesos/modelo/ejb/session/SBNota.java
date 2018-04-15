@@ -48,9 +48,7 @@ public class SBNota implements SBNotaLocal {
 
 	@Override
 	public void eleminarNota(Nota nota) throws Exception {
-
 		sbFacade.removeEntity(nota);
-
 	}
 
 }

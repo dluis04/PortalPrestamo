@@ -54,7 +54,7 @@ public class SBUsuario implements SBUsuarioLocal {
 
 		String query = "SELECT COUNT(u.idUsuario) FROM Usuario u WHERE u.usuUsuario ='" + user.getUsuUsuario() + "' ";
 
-		List registrosList = sbFacade.executeNativeQuery(query, null);
+		List registrosList = sbFacade.executeQuery(query, null);
 		String vo = "0";
 		int cont = 0;
 		for (int i = 0; i < registrosList.size(); i++) {
@@ -80,7 +80,7 @@ public class SBUsuario implements SBUsuarioLocal {
 		String query = "SELECT u FROM Usuario u where u.idUsuario='" + id + "' ";
 
 		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
-		Usuario temp = new Usuario();
+		Usuario temp = null;
 
 		for (int i = 0; i < listUsuario.size(); i++) {
 			temp = listUsuario.get(i);
@@ -93,7 +93,7 @@ public class SBUsuario implements SBUsuarioLocal {
 		String query = "SELECT u FROM Usuario u where u.usuUsuario='" + usuario.getUsuUsuario() + "' ";
 
 		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
-		Usuario temp = new Usuario();
+		Usuario temp = null;
 
 		for (int i = 0; i < listUsuario.size(); i++) {
 			temp = listUsuario.get(i);
@@ -147,6 +147,36 @@ public class SBUsuario implements SBUsuarioLocal {
 	public Usuario modificarPassword(Usuario usuario) throws Exception {
 		Usuario x = (Usuario) sbFacade.updateEntity(usuario);
 		return x;
+	}
+
+	@Override
+	public List<Usuario> consultarUsuariosSistema() throws Exception {
+		String query = "SELECT u FROM Usuario u where u.statusUsuario2.idStatusUsu='1' ";
+		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
+		return listUsuario;
+	}
+
+	@Override
+	public List<Usuario> consultarDeudoresActivos() throws Exception {
+		String query = "SELECT u FROM Usuario u where u.tipoUsuario2.idTipoUsu='4' and u.statusUsuario2.idStatusUsu='1' ";
+		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
+		return listUsuario;
+	}
+
+	@Override
+	public boolean consultarCedulaExiste(Usuario deudor) throws Exception {
+
+		boolean isVerificacion = false;
+
+		String query = "SELECT u FROM Usuario u where u.tipoUsuario2.idTipoUsu='4' and u.usuCedula='"
+				+ deudor.getUsuCedula() + "' ";
+
+		List<Usuario> listUsuario = sbFacade.executeQuery(query, null);
+		if (listUsuario.size() > 0) {
+			isVerificacion = true;
+		}
+
+		return isVerificacion;
 	}
 
 }
